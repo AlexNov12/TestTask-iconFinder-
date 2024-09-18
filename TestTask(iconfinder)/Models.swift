@@ -7,25 +7,42 @@
 
 import Foundation
 
-// JSON array
 struct IconResponse: Codable {
     let icons: [IconModel]
 }
 
 struct IconModel: Codable {
-    let iconId: Int
+    let id: Int
     let tags: [String]
-    let rasterSizes: [RasterSizes]
+    let sizes: [RasterSize]
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "icon_id"
+        case tags
+        case sizes = "raster_sizes"
+    }
 }
 
-struct RasterSizes: Codable {
+struct RasterSize: Codable {
     let formats: [Format]
-    let sizeWidth: Int
-    let sizeHeight: Int
+    let width: Int
+    let height: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case formats
+        case width = "size_width"
+        case height = "size_height"
+    }
 }
 
 struct Format: Codable {
     let format: String
-    let previewUrl: String
-    let downloadUrl: String
+    let previewURL: String
+    let downloadURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case format
+        case previewURL = "preview_url"
+        case downloadURL = "download_url"
+    }
 }

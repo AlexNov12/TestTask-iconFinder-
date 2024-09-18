@@ -7,13 +7,20 @@
 
 import UIKit
 
-class ImageLoaderManager {
-    static let shared = ImageLoaderManager()
+protocol ImageLoaderManagerProtocol {
+    func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
+}
+
+class ImageLoaderManager: ImageLoaderManagerProtocol {
+
+    private let iconCacheManager: IconCacheManagerProtocol
     
-    private init() {}
-    
+    init(iconCacheManager: IconCacheManagerProtocol){
+        self.iconCacheManager = iconCacheManager
+    }
+
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
-        if let cachedImage = IconCacheManager.shared.image(for: urlString) {
+        if let cachedImage = iconCacheManager.image(for: urlString) {
             completion(cachedImage)
             return
         }
@@ -23,14 +30,15 @@ class ImageLoaderManager {
             return
         }
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, let image = UIImage(data: data) else {
                 completion(nil)
                 return
             }
             
-            IconCacheManager.shared.setImage(image, for: urlString)
+            self.iconCacheManager.setImage(image, for: urlString)
             completion(image)
-        }.resume()
+        }
+        task.resume()
     }
 }

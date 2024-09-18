@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  ModuleIconSearcherView.swift
 //  TestTask(iconfinder)
 //
 //  Created by Александр Новиков on 16.09.2024.
@@ -7,25 +7,98 @@
 
 import UIKit
 
-class MainView: UIView {
+final class ModuleIconSearcherView: UIView {
     
-    private let tableView: UITableView
+    typealias Item = ModuleIconSearcherTableViewCell.Model
     
-    init(frame: CGRect, tableViewDelegate: UITableViewDelegate, tableViewDataSource: UITableViewDataSource) {
-        tableView = UITableView(frame: .zero, style: .plain)
-        super.init(frame: frame)
-        setupView(tableViewDelegate: tableViewDelegate, tableViewDataSource: tableViewDataSource)
+    struct Model {
+        let items: [Item]
     }
     
-    required init?(coder: NSCoder) {
+    private var model: Model?
+    
+    private lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.register(ModuleIconSearcherTableViewCell.self, forCellReuseIdentifier: ModuleIconSearcherTableViewCell.iconCell)
+        view.separatorInset = .zero
+        view.tableFooterView = UIView()
+        view.backgroundColor = .systemBackground
+        view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
+        view.dataSource = self
+        view.delegate = self
+        return view
+    }()
+    
+    private let presenter: ModuleIconSearcherPresenterProtocol
+    
+    init(presenter: ModuleIconSearcherPresenterProtocol) {
+        self.presenter = presenter
+        super.init(frame: .zero)
+        commonInit()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView(tableViewDelegate: UITableViewDelegate, tableViewDataSource: UITableViewDataSource) {
+    func update(model: Model) {
+        self.model = model
+        tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension ModuleIconSearcherView: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        model?.items.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let model = model, let cell = tableView.dequeueReusableCell(withIdentifier: ModuleIconSearcherTableViewCell.iconCell) as?
+                ModuleIconSearcherTableViewCell else {
+                return UITableViewCell()
+        }
+        
+        let item = model.items[indexPath.row]
+        
+        let cellModel = ModuleIconSearcherTableViewCell.Model(
+            image: item.image,
+            tags: item.tags,
+            sizeLabel: item.sizeLabel
+        )
+        
+        cell.update(with: cellModel)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ModuleIconSearcherView: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // Тыкалка сохранения
+        presenter.tapOnIcon(at: indexPath.row)
+    }
+}
+
+private extension ModuleIconSearcherView {
+    
+    func commonInit() {
+        backgroundColor = .systemBackground
+        setupSubviews()
+        setupConstraints()
+    }
+    
+    func setupSubviews() {
         addSubview(tableView)
-        backgroundColor = .white
-        tableView.delegate = tableViewDelegate
-        tableView.dataSource = tableViewDataSource
+    }
+    
+    func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -35,12 +108,5 @@ class MainView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
-    func reloadDataTableView() {
-        tableView.reloadData()
-    }
-    
-    func getTableView() -> UITableView {
-        return tableView
-    }
 }
+
