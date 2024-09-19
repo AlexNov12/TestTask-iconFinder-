@@ -21,7 +21,7 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
+//        imageView.isUserInteractionEnabled = true
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
 //        imageView.addGestureRecognizer(tapGesture)
         return imageView
@@ -51,8 +51,6 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         tintColor = .systemRed
         
         setupSubviews()
-        
-        accessoryType = .disclosureIndicator // Что это???
    }
    
     @available(*, unavailable)

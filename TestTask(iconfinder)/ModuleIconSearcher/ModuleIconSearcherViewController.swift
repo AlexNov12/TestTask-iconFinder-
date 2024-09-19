@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ModuleIconSearcherViewControllerProtocol: AnyObject {
+protocol ModuleIconSearcherViewProtocol: AnyObject {
     func update(model: ModuleIconSearcherView.Model)
 }
 
@@ -31,11 +31,33 @@ final class ModuleIconSearcherViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        presenter.viewDidLoad()
+//        presenter.viewDidLoad()
+    }
+    
+    private func setupSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
     }
 }
 
-extension ModuleIconSearcherViewController: ModuleIconSearcherViewControllerProtocol {
+// MARK: UISearchBarDelegate
+
+extension ModuleIconSearcherViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchIcons(with: searchBar.text ?? "")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchIcons(with: "")
+    }
+}
+
+
+extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
     func update(model: ModuleIconSearcherView.Model) {
         customView.update(model: model)
     }

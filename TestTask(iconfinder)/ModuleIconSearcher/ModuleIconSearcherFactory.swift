@@ -8,17 +8,13 @@
 import UIKit
 
 final class ModuleIconSearcherFactory {
-//    func make() -> UIViewController {
-//         Потом добавить в AppDelegate
-//         let iconSearcherModule = ModuleIconSearcherFactory().make()
-//         let iconSearchService = IconSearchService()
-//        
-//         let presenter = ModuleIconSearcherPresenter()
-//        
-//         let vc = ModuleIconSearcherViewController(presenter: presenter)
-//        
-//         presenter.view = vc
-//        
-//         return vc
+    
+//    static func makeMainViewController() -> UIViewController {
+//        let mainView = ModuleIconSearcherViewController()
+//        let iconSearchService: IconSearchServiceProtocol = IconSearchService()
+//        let mainPresenter = ModuleIconSearcherPresenter(view: mainView, iconSearchService: iconSearchService)
+//        mainView.presenter = mainPresenter
+//        return mainView
 //    }
 }
+

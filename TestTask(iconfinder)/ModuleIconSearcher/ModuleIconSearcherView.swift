@@ -82,7 +82,7 @@ extension ModuleIconSearcherView: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // Тыкалка сохранения
-        presenter.tapOnIcon(at: indexPath.row)
+//        presenter.tapOnIcon(at: indexPath.row)
     }
 }
 
@@ -109,4 +109,3 @@ private extension ModuleIconSearcherView {
         ])
     }
 }
-
