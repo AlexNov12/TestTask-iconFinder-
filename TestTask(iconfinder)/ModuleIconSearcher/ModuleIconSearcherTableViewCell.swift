@@ -12,7 +12,7 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
    static let iconCell = "ModuleProductsTableViewCell"
    
    struct Model {
-        let image: UIImage
+        let imageURL: String
         let tags: String
         let sizeLabel: String
    }
@@ -21,9 +21,6 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
-//        imageView.isUserInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-//        imageView.addGestureRecognizer(tapGesture)
         return imageView
    }()
    
@@ -59,9 +56,22 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
     }
     
     func update(with model: Model) {
-        iconImageView.image = model.image
+        loadImage(from: model.imageURL)
         sizeLabel.text = model.sizeLabel
         tagsLabel.text = model.tags
+    }
+    
+    private func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else {
+            iconImageView.image = nil
+            return
+        }
+        
+        ImageLoaderManager.shared.loadImage(from: urlString) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.iconImageView.image = image
+            }
+        }
     }
 }
 
@@ -74,6 +84,12 @@ private extension ModuleIconSearcherTableViewCell {
     }
     
     func setupConstraints() {
+        
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        tagsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         NSLayoutConstraint.activate([
             iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

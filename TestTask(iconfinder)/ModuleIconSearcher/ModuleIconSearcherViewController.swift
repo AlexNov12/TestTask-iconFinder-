@@ -31,7 +31,8 @@ final class ModuleIconSearcherViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-//        presenter.viewDidLoad()
+        super.viewDidLoad()
+        setupSearchBar()
     }
     
     private func setupSearchBar() {

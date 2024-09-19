@@ -45,7 +45,9 @@ final class ModuleIconSearcherView: UIView {
     
     func update(model: Model) {
         self.model = model
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -65,7 +67,7 @@ extension ModuleIconSearcherView: UITableViewDataSource {
         let item = model.items[indexPath.row]
         
         let cellModel = ModuleIconSearcherTableViewCell.Model(
-            image: item.image,
+            imageURL: item.imageURL,
             tags: item.tags,
             sizeLabel: item.sizeLabel
         )
@@ -80,9 +82,12 @@ extension ModuleIconSearcherView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // Тыкалка сохранения
-//        presenter.tapOnIcon(at: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let width = (tableView.frame.width - 32) / 3
+        let height = width * 3
+        return height
     }
 }
 

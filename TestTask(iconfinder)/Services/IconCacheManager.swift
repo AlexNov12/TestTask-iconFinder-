@@ -13,14 +13,14 @@ protocol IconCacheManagerProtocol {
 }
 
 class IconCacheManager: IconCacheManagerProtocol {
-
-    private var imageCache = NSCache<NSString, UIImage>()
-
-    func image(for url: String) -> UIImage? {
+    
+    private var imageCache = NSCache<NSString, UIImage>() // Словарь ключ - строка, значение - картинка
+    
+    func image(for url: String) -> UIImage? {             // Для поиска в кэше изображений
         return imageCache.object(forKey: url as NSString)
     }
-
-    func setImage(_ image: UIImage, for url: String) {
-        imageCache.setObject(image, forKey: url as NSString)
+    
+    func setImage(_ image: UIImage, for url: String) {    // Для сохранения в кэш изображений
+        self.imageCache.setObject(image, forKey: url as NSString)
     }
 }

@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let mainViewController = ModuleIconSearcherFactory.makeMainViewController()
+        let mainViewController = ModuleIconSearcherFactory.make()
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
         window.rootViewController = navigationController

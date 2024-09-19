@@ -11,14 +11,17 @@ protocol ImageLoaderManagerProtocol {
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
 }
 
-class ImageLoaderManager {
-    
+
+class ImageLoaderManager: ImageLoaderManagerProtocol {
+
+    static let shared = ImageLoaderManager(iconCacheManager: IconCacheManager())
+
     private let iconCacheManager: IconCacheManagerProtocol
     
     init(iconCacheManager: IconCacheManagerProtocol){
         self.iconCacheManager = iconCacheManager
     }
-    
+
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         if let cachedImage = iconCacheManager.image(for: urlString) {
             completion(cachedImage)
