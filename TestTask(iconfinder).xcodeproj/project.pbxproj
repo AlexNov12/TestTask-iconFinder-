@@ -19,7 +19,7 @@
 		B394EA002C98AC2600285D93 /* ModuleIconSearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */; };
 		B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */; };
 		B394EA062C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA052C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift */; };
-		B394EA092C98AE4200285D93 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* PhotoLibraryManager.swift */; };
+		B394EA092C98AE4200285D93 /* IconSavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* IconSavingManager.swift */; };
 		B394EA0B2C98AE5600285D93 /* AlertAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0A2C98AE5600285D93 /* AlertAccessViewController.swift */; };
 		B394EA0D2C98AE6800285D93 /* AlertSaveSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0C2C98AE6800285D93 /* AlertSaveSuccessViewController.swift */; };
 		B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */; };
@@ -41,7 +41,7 @@
 		B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherViewController.swift; sourceTree = "<group>"; };
 		B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherView.swift; sourceTree = "<group>"; };
 		B394EA052C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherTableViewCell.swift; sourceTree = "<group>"; };
-		B394EA082C98AE4200285D93 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
+		B394EA082C98AE4200285D93 /* IconSavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSavingManager.swift; sourceTree = "<group>"; };
 		B394EA0A2C98AE5600285D93 /* AlertAccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAccessViewController.swift; sourceTree = "<group>"; };
 		B394EA0C2C98AE6800285D93 /* AlertSaveSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSaveSuccessViewController.swift; sourceTree = "<group>"; };
 		B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderManager.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		B394EA072C98AE2600285D93 /* ModuleGallery */ = {
 			isa = PBXGroup;
 			children = (
-				B394EA082C98AE4200285D93 /* PhotoLibraryManager.swift */,
+				B394EA082C98AE4200285D93 /* IconSavingManager.swift */,
 				B394EA0A2C98AE5600285D93 /* AlertAccessViewController.swift */,
 				B394EA0C2C98AE6800285D93 /* AlertSaveSuccessViewController.swift */,
 			);
@@ -198,7 +198,7 @@
 				B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */,
 				B394EA0D2C98AE6800285D93 /* AlertSaveSuccessViewController.swift in Sources */,
 				B322BE832C975FB300660A53 /* AppDelegate.swift in Sources */,
-				B394EA092C98AE4200285D93 /* PhotoLibraryManager.swift in Sources */,
+				B394EA092C98AE4200285D93 /* IconSavingManager.swift in Sources */,
 				B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */,
 				B394EA062C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift in Sources */,
 				B322BE852C975FB300660A53 /* SceneDelegate.swift in Sources */,

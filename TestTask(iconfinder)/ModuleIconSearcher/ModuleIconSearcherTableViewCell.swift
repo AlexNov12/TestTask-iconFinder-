@@ -7,6 +7,8 @@
 
 import UIKit
 
+import UIKit
+
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
    static let iconCell = "ModuleProductsTableViewCell"
@@ -21,6 +23,9 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
    }()
    
@@ -62,7 +67,7 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
     }
     
     private func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else {
+        guard let _ = URL(string: urlString) else {
             iconImageView.image = nil
             return
         }
@@ -72,6 +77,11 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
                 self?.iconImageView.image = image
             }
         }
+    }
+    
+    @objc private func imageClicked() {
+        guard let image = iconImageView.image else { return }
+        IconSavingManager.shared.saveToGallery(image: image)
     }
 }
 

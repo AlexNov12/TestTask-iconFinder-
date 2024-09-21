@@ -14,9 +14,11 @@ final class ModuleIconSearcherFactory {
         let iconCacheManager: IconCacheManagerProtocol = IconCacheManager()
         let imageLoaderManager: ImageLoaderManagerProtocol = ImageLoaderManager(iconCacheManager: iconCacheManager)
         let presenter = ModuleIconSearcherPresenter(iconSearchService: iconSearchService, imageLoaderManager: imageLoaderManager)
-        let viewController = ModuleIconSearcherViewController(presenter: presenter)
-        presenter.view = viewController
-        return viewController
+       
+        let vc = ModuleIconSearcherViewController(presenter: presenter)
+        
+        presenter.view = vc
+        return vc
     }
 }
 
