@@ -1,5 +1,5 @@
 //
-//  AlertAccessViewController.swift
+//  PermissionAlertController.swift
 //  TestTask(iconfinder)
 //
 //  Created by Александр Новиков on 16.09.2024.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class AlertAccessViewController: UIViewController {
+final class PermissionAlertController: UIViewController {
     
-    static let shared = AlertAccessViewController()
+    static let shared = PermissionAlertController()
     
     func showAccessAlert() {
         let alertViewController = UIAlertController(
@@ -45,12 +45,6 @@ final class AlertAccessViewController: UIViewController {
         let rootViewController = scene.windows.first?.rootViewController {
             rootViewController.present(alertViewController, animated: true, completion: nil)
         }
-        // поиграться тут, мб добавить протокол
-        // AlertAccessViewControllerProtocol
-        // AlertAccessViewController: AlertAccessViewControllerProtocol
-        // func showAccessAlert() -> UIViewController  {
-        //     return alertViewController
-        // }
     }
 }
 

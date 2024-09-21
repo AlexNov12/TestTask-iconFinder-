@@ -12,22 +12,16 @@ import Photos
 final class IconSavingManager: NSObject {
     
     static let shared = IconSavingManager()
-
-//    private let alertAccess: AlertAccessViewController
-//    private let saveAlert: AlertSaveSuccessViewController
-//    
-//    init(alertAccess: AlertAccessViewController, saveAlert: AlertSaveSuccessViewController){
-//        self.alertAccess = alertAccess
-//        self.saveAlert = saveAlert
-//    }
     
     func saveToGallery(image: UIImage) {
-        print("save image start") // для проверки, что работает
+        
+        // для проверки, что работает
         let startTime = DispatchTime.now()
         
-        DispatchQueue.global(qos: .background).async{
+        DispatchQueue.global(qos: .background).async{ [weak self] in
+            guard let self = self else { return }
             if PHPhotoLibrary.authorizationStatus() == .denied || PHPhotoLibrary.authorizationStatus() == .restricted {
-                AlertAccessViewController.shared.showAccessAlert()
+                PermissionAlertController.shared.showAccessAlert()
             } else {
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveCompleted), nil)
             }
@@ -41,6 +35,6 @@ final class IconSavingManager: NSObject {
     }
     
     @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        AlertSaveSuccessViewController.shared.showSaveSuccessAlert()
+        SuccessAlertController.shared.showSaveSuccessAlert()
     }
 }

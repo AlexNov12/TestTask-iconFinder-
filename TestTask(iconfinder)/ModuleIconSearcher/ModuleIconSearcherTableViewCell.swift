@@ -11,7 +11,7 @@ import UIKit
 
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
-   static let iconCell = "ModuleProductsTableViewCell"
+   static let iconCell = "ModuleIconSearcherTableViewCell"
    
    struct Model {
         let imageURL: String

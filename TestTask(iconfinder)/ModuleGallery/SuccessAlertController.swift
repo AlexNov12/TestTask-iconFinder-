@@ -1,5 +1,5 @@
 //
-//  AlertSaveSuccessViewController.swift
+//  SuccessAlertController.swift
 //  TestTask(iconfinder)
 //
 //  Created by Александр Новиков on 16.09.2024.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class AlertSaveSuccessViewController: UIViewController {
+final class SuccessAlertController: UIViewController {
     
-    static let shared = AlertSaveSuccessViewController()
+    static let shared = SuccessAlertController()
     
     func showSaveSuccessAlert() {
         let alertViewController = UIAlertController(
