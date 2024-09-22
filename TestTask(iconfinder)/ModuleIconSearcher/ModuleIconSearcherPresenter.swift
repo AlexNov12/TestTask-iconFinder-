@@ -43,13 +43,13 @@ private extension ModuleIconSearcherPresenter {
         let items: [ModuleIconSearcherTableViewCell.Model] = icons.map { icon in
             let imageURL = icon.sizes.last?.formats.last?.previewURL ?? ""
             var sizeLabel = "No format available"
-            if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height{
+            if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height {
                 sizeLabel = "\(width)x\(height)"
             }
             
             return .init(
                 imageURL: imageURL,
-                tags: "Tags: \(icon.tags.prefix(10).joined(separator: ", "))" ,
+                tags: "Tags: \(icon.tags.prefix(10).joined(separator: ", "))",
                 sizeLabel: sizeLabel
             )
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 protocol ImageLoaderManagerProtocol {
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
@@ -17,7 +18,7 @@ class ImageLoaderManager: ImageLoaderManagerProtocol {
 
     private let iconCacheManager: IconCacheManagerProtocol
     
-    init(iconCacheManager: IconCacheManagerProtocol){
+    init(iconCacheManager: IconCacheManagerProtocol) {
         self.iconCacheManager = iconCacheManager
     }
 

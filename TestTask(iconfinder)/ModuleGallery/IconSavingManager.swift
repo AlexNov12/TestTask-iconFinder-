@@ -8,7 +8,6 @@
 import UIKit
 import Photos
 
-
 final class IconSavingManager: NSObject {
     
     static let shared = IconSavingManager()
@@ -18,7 +17,7 @@ final class IconSavingManager: NSObject {
         // для проверки, что работает
         let startTime = DispatchTime.now()
         
-        DispatchQueue.global(qos: .background).async{ [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             if PHPhotoLibrary.authorizationStatus() == .denied || PHPhotoLibrary.authorizationStatus() == .restricted {
                 PermissionAlertController.shared.showAccessAlert()

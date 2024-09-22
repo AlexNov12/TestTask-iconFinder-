@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B322BE832C975FB300660A53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BE822C975FB300660A53 /* AppDelegate.swift */; };
-		B322BE852C975FB300660A53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BE842C975FB300660A53 /* SceneDelegate.swift */; };
-		B322BE872C975FB300660A53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BE862C975FB300660A53 /* ViewController.swift */; };
 		B322BE8C2C975FB400660A53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B322BE8B2C975FB400660A53 /* Assets.xcassets */; };
 		B322BE8F2C975FB400660A53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B322BE8D2C975FB400660A53 /* LaunchScreen.storyboard */; };
 		B394E9F72C98AA1900285D93 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9F62C98AA1900285D93 /* Models.swift */; };
@@ -24,13 +22,13 @@
 		B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */; };
 		B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */; };
 		B394EA112C98AF5700285D93 /* IconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA102C98AF5700285D93 /* IconCacheManager.swift */; };
+		B394EA172C9FEFE200285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA162C9FEFE200285D93 /* Nuke */; };
+		B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA182C9FEFE200285D93 /* NukeExtensions */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B322BE7F2C975FB300660A53 /* TestTask(iconfinder).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestTask(iconfinder).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B322BE822C975FB300660A53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B322BE842C975FB300660A53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B322BE862C975FB300660A53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B322BE8B2C975FB400660A53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B322BE8E2C975FB400660A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B322BE902C975FB400660A53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B394EA172C9FEFE200285D93 /* Nuke in Frameworks */,
+				B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,8 +83,6 @@
 				B394EA072C98AE2600285D93 /* ModuleGallery */,
 				B394E9FA2C98ABD900285D93 /* ModuleIconSearcher */,
 				B322BE822C975FB300660A53 /* AppDelegate.swift */,
-				B322BE842C975FB300660A53 /* SceneDelegate.swift */,
-				B322BE862C975FB300660A53 /* ViewController.swift */,
 				B322BE8B2C975FB400660A53 /* Assets.xcassets */,
 				B322BE8D2C975FB400660A53 /* LaunchScreen.storyboard */,
 				B322BE902C975FB400660A53 /* Info.plist */,
@@ -140,6 +138,10 @@
 			dependencies = (
 			);
 			name = "TestTask(iconfinder)";
+			packageProductDependencies = (
+				B394EA162C9FEFE200285D93 /* Nuke */,
+				B394EA182C9FEFE200285D93 /* NukeExtensions */,
+			);
 			productName = "TestTask(iconfinder)";
 			productReference = B322BE7F2C975FB300660A53 /* TestTask(iconfinder).app */;
 			productType = "com.apple.product-type.application";
@@ -168,6 +170,10 @@
 				Base,
 			);
 			mainGroup = B322BE762C975FB300660A53;
+			packageReferences = (
+				B394EA122C9FEDE900285D93 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */,
+			);
 			productRefGroup = B322BE802C975FB300660A53 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -194,14 +200,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B322BE872C975FB300660A53 /* ViewController.swift in Sources */,
 				B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */,
 				B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */,
 				B322BE832C975FB300660A53 /* AppDelegate.swift in Sources */,
 				B394EA092C98AE4200285D93 /* IconSavingManager.swift in Sources */,
 				B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */,
 				B394EA062C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift in Sources */,
-				B322BE852C975FB300660A53 /* SceneDelegate.swift in Sources */,
 				B394EA112C98AF5700285D93 /* IconCacheManager.swift in Sources */,
 				B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */,
 				B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */,
@@ -425,6 +429,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B394EA122C9FEDE900285D93 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+		B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B394EA162C9FEFE200285D93 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		B394EA182C9FEFE200285D93 /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B322BE772C975FB300660A53 /* Project object */;
 }

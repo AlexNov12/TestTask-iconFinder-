@@ -57,7 +57,6 @@ extension ModuleIconSearcherViewController: UISearchBarDelegate {
     }
 }
 
-
 extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
     func update(model: ModuleIconSearcherView.Model) {
         customView.update(model: model)

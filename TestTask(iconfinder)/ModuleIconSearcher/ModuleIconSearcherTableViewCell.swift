@@ -97,7 +97,6 @@ private extension ModuleIconSearcherTableViewCell {
         sizeLabel.translatesAutoresizingMaskIntoConstraints = false
         tagsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
         NSLayoutConstraint.activate([
             iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
