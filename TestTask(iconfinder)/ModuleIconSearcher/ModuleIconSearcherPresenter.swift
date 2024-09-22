@@ -42,10 +42,15 @@ private extension ModuleIconSearcherPresenter {
         guard let icons = icons, icons.count > 0 else { return }
         let items: [ModuleIconSearcherTableViewCell.Model] = icons.map { icon in
             let imageURL = icon.sizes.last?.formats.last?.previewURL ?? ""
+            var sizeLabel = "No format available"
+            if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height{
+                sizeLabel = "\(width)x\(height)"
+            }
+            
             return .init(
                 imageURL: imageURL,
                 tags: "Tags: \(icon.tags.prefix(10).joined(separator: ", "))" ,
-                sizeLabel: "\(icon.sizes.last?.width)x\(icon.sizes.last?.height)"
+                sizeLabel: sizeLabel
             )
         }
         

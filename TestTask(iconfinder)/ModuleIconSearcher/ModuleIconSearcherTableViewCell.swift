@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
    static let iconCell = "ModuleIconSearcherTableViewCell"

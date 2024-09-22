@@ -11,7 +11,6 @@ protocol ImageLoaderManagerProtocol {
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
 }
 
-
 class ImageLoaderManager: ImageLoaderManagerProtocol {
 
     static let shared = ImageLoaderManager(iconCacheManager: IconCacheManager())
