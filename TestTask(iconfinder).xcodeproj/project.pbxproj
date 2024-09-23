@@ -25,6 +25,10 @@
 		B394EA172C9FEFE200285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA162C9FEFE200285D93 /* Nuke */; };
 		B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA182C9FEFE200285D93 /* NukeExtensions */; };
 		B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA1A2CA14B7700285D93 /* Debouncer.swift */; };
+		B394EA1D2CA15B5800285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA1C2CA15B5800285D93 /* Nuke */; };
+		B394EA1F2CA15B5800285D93 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA1E2CA15B5800285D93 /* NukeExtensions */; };
+		B394EA212CA15B5800285D93 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA202CA15B5800285D93 /* NukeUI */; };
+		B394EA232CA15B5800285D93 /* NukeVideo in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA222CA15B5800285D93 /* NukeVideo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B394EA212CA15B5800285D93 /* NukeUI in Frameworks */,
+				B394EA232CA15B5800285D93 /* NukeVideo in Frameworks */,
+				B394EA1D2CA15B5800285D93 /* Nuke in Frameworks */,
+				B394EA1F2CA15B5800285D93 /* NukeExtensions in Frameworks */,
 				B394EA172C9FEFE200285D93 /* Nuke in Frameworks */,
 				B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */,
 			);
@@ -144,6 +152,10 @@
 			packageProductDependencies = (
 				B394EA162C9FEFE200285D93 /* Nuke */,
 				B394EA182C9FEFE200285D93 /* NukeExtensions */,
+				B394EA1C2CA15B5800285D93 /* Nuke */,
+				B394EA1E2CA15B5800285D93 /* NukeExtensions */,
+				B394EA202CA15B5800285D93 /* NukeUI */,
+				B394EA222CA15B5800285D93 /* NukeVideo */,
 			);
 			productName = "TestTask(iconfinder)";
 			productReference = B322BE7F2C975FB300660A53 /* TestTask(iconfinder).app */;
@@ -463,6 +475,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = NukeExtensions;
+		};
+		B394EA1C2CA15B5800285D93 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		B394EA1E2CA15B5800285D93 /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		B394EA202CA15B5800285D93 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		B394EA222CA15B5800285D93 /* NukeVideo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeVideo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
