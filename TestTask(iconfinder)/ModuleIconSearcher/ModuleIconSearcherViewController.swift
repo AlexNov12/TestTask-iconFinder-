@@ -48,8 +48,8 @@ final class ModuleIconSearcherViewController: UIViewController {
 
 extension ModuleIconSearcherViewController: UISearchBarDelegate {
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        presenter.searchIcons(with: searchBar.text ?? "")
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.searchIcons(with: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

@@ -21,7 +21,7 @@ final class PermissionAlertController: UIViewController {
         let openSettingAction = UIAlertAction(
             title: "Open settings",
             style: .cancel
-        ) { _ in 
+        ) { _ in
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -29,7 +29,6 @@ final class PermissionAlertController: UIViewController {
             if UIApplication.shared.canOpenURL(settingsURL) {
                 UIApplication.shared.canOpenURL(settingsURL)
             }
-            
         }
         
         let cancel = UIAlertAction(

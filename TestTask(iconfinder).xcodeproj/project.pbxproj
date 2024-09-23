@@ -24,6 +24,7 @@
 		B394EA112C98AF5700285D93 /* IconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA102C98AF5700285D93 /* IconCacheManager.swift */; };
 		B394EA172C9FEFE200285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA162C9FEFE200285D93 /* Nuke */; };
 		B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA182C9FEFE200285D93 /* NukeExtensions */; };
+		B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA1A2CA14B7700285D93 /* Debouncer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertController.swift; sourceTree = "<group>"; };
 		B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderManager.swift; sourceTree = "<group>"; };
 		B394EA102C98AF5700285D93 /* IconCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCacheManager.swift; sourceTree = "<group>"; };
+		B394EA1A2CA14B7700285D93 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				B394E9F82C98AA4300285D93 /* IconSearchService.swift */,
 				B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */,
 				B394EA102C98AF5700285D93 /* IconCacheManager.swift */,
+				B394EA1A2CA14B7700285D93 /* Debouncer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				B394EA112C98AF5700285D93 /* IconCacheManager.swift in Sources */,
 				B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */,
 				B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */,
+				B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */,
 				B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */,
 				B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */,
 				B394E9F72C98AA1900285D93 /* Models.swift in Sources */,

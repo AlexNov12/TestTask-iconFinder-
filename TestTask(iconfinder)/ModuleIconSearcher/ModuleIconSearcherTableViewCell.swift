@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
@@ -65,14 +66,16 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
     }
     
     private func loadImage(from urlString: String) {
-        guard let _ = URL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             iconImageView.image = nil
             return
         }
         
-        ImageLoaderManager.shared.loadImage(from: urlString) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.iconImageView.image = image
+        Task {
+            do {
+                iconImageView.image = try await ImagePipeline.shared.image(for: url)
+            } catch {
+                iconImageView.image = nil
             }
         }
     }
