@@ -18,19 +18,19 @@ class IconCacheManager: IconCacheManagerProtocol {
     private let memoryCache = ImageCache.shared
     
     init() {
-        memoryCache.costLimit = 1024 * 1024 * 100 // 100 MB
-        memoryCache.countLimit = 100 // Лимит по количеству объектов
-        memoryCache.ttl = 120 // Время хранения объектов — 120 секунд
+        memoryCache.costLimit = 1024 * 1024 * 100
+        memoryCache.countLimit = 100
+        memoryCache.ttl = 120
     }
     
-    func image(for url: String) -> UIImage? {             // Для поиска в кэше изображений
+    func image(for url: String) -> UIImage? {
         guard let url = URL(string: url) else { return nil }
         let request = ImageRequest(url: url)
         let cacheKey = ImageCacheKey(request: request)
         return memoryCache[cacheKey]?.image
     }
     
-    func setImage(_ image: UIImage, for url: String) {    // Для сохранения в кэш изображений
+    func setImage(_ image: UIImage, for url: String) {
         guard let url = URL(string: url) else { return }
         let request = ImageRequest(url: url)
         let cacheKey = ImageCacheKey(request: request)

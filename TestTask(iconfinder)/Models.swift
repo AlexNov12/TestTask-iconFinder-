@@ -5,7 +5,7 @@
 //  Created by Александр Новиков on 16.09.2024.
 //
 
-import Foundation
+import UIKit
 
 struct IconResponse: Codable {
     let icons: [IconModel]

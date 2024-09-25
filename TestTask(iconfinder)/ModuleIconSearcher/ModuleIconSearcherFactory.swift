@@ -22,4 +22,3 @@ final class ModuleIconSearcherFactory {
         return vc
     }
 }
-
