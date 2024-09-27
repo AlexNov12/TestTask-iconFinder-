@@ -101,9 +101,9 @@ private extension ModuleIconSearcherTableViewCell {
         tagsLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            iconImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            iconImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             iconImageView.heightAnchor.constraint(equalToConstant: 200),
             
             sizeLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 8),
@@ -112,7 +112,8 @@ private extension ModuleIconSearcherTableViewCell {
             
             tagsLabel.topAnchor.constraint(equalTo: sizeLabel.bottomAnchor, constant: 8),
             tagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            tagsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            tagsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            tagsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8) 
         ])
     }
 }

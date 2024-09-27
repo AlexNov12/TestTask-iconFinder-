@@ -1,9 +1,9 @@
-    //
-    //  ModuleIconSearcherView.swift
-    //  TestTask(iconfinder)
-    //
-    //  Created by Александр Новиков on 16.09.2024.
-    //
+//
+//  ModuleIconSearcherView.swift
+//  TestTask(iconfinder)
+//
+//  Created by Александр Новиков on 16.09.2024.
+//
 
 import UIKit
 
@@ -82,12 +82,6 @@ extension ModuleIconSearcherView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let width = (tableView.frame.width - 32) / 3
-        let height = width * 3
-        return height
     }
 }
 

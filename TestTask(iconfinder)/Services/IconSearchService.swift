@@ -41,7 +41,6 @@ final class IconSearchService: IconSearchServiceProtocol {
             "Authorization": "Bearer \(apiKey)"
         ]
         
-        // Поиск в кэше сетевых запросов в URLCache(синглтон)
         if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
             do {
                 let decoder = JSONDecoder()
@@ -70,10 +69,8 @@ final class IconSearchService: IconSearchServiceProtocol {
                 let response = try decoder.decode(IconResponse.self, from: data)
                 let icons = response.icons
                 
-                // Запись в кэш сетевых запросов в URLCache(синглтон)
                 let cachedResponse = CachedURLResponse(response: urlResponse, data: data)
                 URLCache.shared.storeCachedResponse(cachedResponse, for: request)
-
                 completion(.success(icons))
             } catch {
                 completion(.failure(error))
