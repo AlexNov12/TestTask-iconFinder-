@@ -14,8 +14,6 @@ protocol ImageLoaderManagerProtocol {
 
 class ImageLoaderManager: ImageLoaderManagerProtocol {
 
-    static let shared = ImageLoaderManager(iconCacheManager: IconCacheManager())
-
     private let iconCacheManager: IconCacheManagerProtocol
     
     init(iconCacheManager: IconCacheManagerProtocol) {
