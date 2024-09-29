@@ -45,9 +45,7 @@ final class ModuleIconSearcherView: UIView {
     
     func update(model: Model) {
         self.model = model
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
     }
 }
 
@@ -66,10 +64,20 @@ extension ModuleIconSearcherView: UITableViewDataSource {
         
         let item = model.items[indexPath.row]
         
+        let loadImageAction: (String) async throws -> UIImage? = { [weak presenter] _ in
+            return try await presenter?.loadImage(imageURL: item.imageURL)
+        }
+        
+        let saveIconAction: (UIImage) -> Void = { [weak presenter] image in
+            presenter?.saveIconToGallery(image: image)
+        }
+        
         let cellModel = ModuleIconSearcherTableViewCell.Model(
             imageURL: item.imageURL,
             tags: item.tags,
-            sizeLabel: item.sizeLabel
+            sizeLabel: item.sizeLabel,
+            loadImageAction: loadImageAction, 
+            iconSavingAction: saveIconAction
         )
         
         cell.update(with: cellModel)

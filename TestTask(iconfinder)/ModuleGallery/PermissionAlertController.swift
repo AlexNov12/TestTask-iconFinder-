@@ -7,9 +7,11 @@
 
 import UIKit
 
-final class PermissionAlertController: UIViewController {
-    
-    static let shared = PermissionAlertController()
+protocol PermissionAlertControllerProtocol {
+    func showAccessAlert()
+}
+
+final class PermissionAlertController: UIViewController, PermissionAlertControllerProtocol {
     
     func showAccessAlert() {
         let alertViewController = UIAlertController(

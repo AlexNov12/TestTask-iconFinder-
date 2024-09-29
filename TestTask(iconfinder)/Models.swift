@@ -7,12 +7,6 @@
 
 import UIKit
 
-struct IconItem {
-    let iconImage: UIImage
-    let tags: [String]
-    let maxSize: String
-}
-
 struct IconResponse: Codable {
     let icons: [IconModel]
 }

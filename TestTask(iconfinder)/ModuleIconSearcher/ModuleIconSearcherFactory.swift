@@ -14,7 +14,15 @@ final class ModuleIconSearcherFactory {
         let iconCacheManager: IconCacheManagerProtocol = IconCacheManager()
         let imageLoaderManager: ImageLoaderManagerProtocol = ImageLoaderManager(iconCacheManager: iconCacheManager)
         let debounceExecutor: CancellableExecutorProtocol = CancellableExecutor()
-        let presenter = ModuleIconSearcherPresenter(iconSearchService: iconSearchService, imageLoaderManager: imageLoaderManager, debounceExecutor: debounceExecutor)
+        let permissionAlert: PermissionAlertControllerProtocol = PermissionAlertController()
+        let successAlert: SuccessAlertControllerProtocol = SuccessAlertController()
+        let iconSavingManager: IconSavingManagerProtocol = IconSavingManager(permissionAlert: permissionAlert, successAlert: successAlert)
+        let presenter = ModuleIconSearcherPresenter(
+            iconSearchService: iconSearchService,
+            imageLoaderManager: imageLoaderManager,
+            debounceExecutor: debounceExecutor,
+            iconSavingManager: iconSavingManager
+        )
         
         let vc = ModuleIconSearcherViewController(presenter: presenter)
         

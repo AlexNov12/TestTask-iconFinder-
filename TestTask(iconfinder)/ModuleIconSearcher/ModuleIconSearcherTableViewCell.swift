@@ -10,15 +10,17 @@ import Nuke
 
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
-   static let iconCell = "ModuleIconSearcherTableViewCell"
-   
-   struct Model {
+    static let iconCell = "ModuleIconSearcherTableViewCell"
+    
+    struct Model {
         let imageURL: String
         let tags: String
         let sizeLabel: String
-   }
-   
-   private lazy var iconImageView: UIImageView = {
+        let loadImageAction: (String) async throws -> UIImage?
+        let iconSavingAction: (UIImage) -> Void
+    }
+    
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
@@ -26,25 +28,27 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
         imageView.addGestureRecognizer(tapGesture)
         return imageView
-   }()
-   
-   private lazy var sizeLabel: UILabel = {
+    }()
+    
+    private lazy var tagsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         return label
-   }()
-   
-   private lazy var tagsLabel: UILabel = {
-       let label = UILabel()
+    }()
+    
+    private lazy var sizeLabel: UILabel = {
+        let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         return label
-   }()
-   
-   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    }()
+    
+    private var iconSavingAction: ((UIImage) -> Void)?
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemBackground
         backgroundColor = .systemBackground
@@ -52,37 +56,33 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         tintColor = .systemRed
         
         setupSubviews()
-   }
-   
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func update(with model: Model) {
-        loadImage(from: model.imageURL)
         sizeLabel.text = model.sizeLabel
         tagsLabel.text = model.tags
-    }
-    
-    private func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else {
-            iconImageView.image = nil
-            return
-        }
-        
-        Task {
+        self.iconSavingAction = model.iconSavingAction
+        Task { [weak self] in
+            guard let self = self else { return }
             do {
-                iconImageView.image = try await ImagePipeline.shared.image(for: url)
+                if let image = try await model.loadImageAction(model.imageURL) {
+                    iconImageView.image = image
+                }
             } catch {
-                iconImageView.image = nil
+                iconImageView.image = UIImage(systemName: "photo")
+                print("Error loading image: \(error)")
             }
         }
     }
     
     @objc private func imageClicked() {
         guard let image = iconImageView.image else { return }
-        IconSavingManager.shared.saveToGallery(image: image)
+        iconSavingAction?(image)
     }
 }
 
@@ -113,7 +113,7 @@ private extension ModuleIconSearcherTableViewCell {
             tagsLabel.topAnchor.constraint(equalTo: sizeLabel.bottomAnchor, constant: 8),
             tagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             tagsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            tagsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8) 
+            tagsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }
