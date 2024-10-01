@@ -7,14 +7,14 @@
 
 import UIKit
 
-struct IconItem {
-    let iconImage: UIImage
-    let tags: [String]
-    let maxSize: String
-}
-
 struct IconResponse: Codable {
     let icons: [IconModel]
+    let totalCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case icons
+        case totalCount = "total_count"
+    }
 }
 
 struct IconModel: Codable {

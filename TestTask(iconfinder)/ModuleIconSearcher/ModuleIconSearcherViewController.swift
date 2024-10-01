@@ -9,6 +9,10 @@ import UIKit
 
 protocol ModuleIconSearcherViewProtocol: AnyObject {
     func update(model: ModuleIconSearcherView.Model)
+    func showLoading()
+    func hideLoading()
+    func showError()
+    func showEmpty(text: String)
 }
 
 final class ModuleIconSearcherViewController: UIViewController {
@@ -60,5 +64,20 @@ extension ModuleIconSearcherViewController: UISearchBarDelegate {
 extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
     func update(model: ModuleIconSearcherView.Model) {
         customView.update(model: model)
+    }
+    func showLoading() {
+        customView.showLoading()
+    }
+    
+    func hideLoading() {
+        customView.hideLoading()
+    }
+    
+    func showError() {
+        customView.showError()
+    }
+    
+    func showEmpty(text: String) {
+        customView.showEmpty(text: text)
     }
 }

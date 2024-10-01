@@ -8,36 +8,25 @@
 import UIKit
 import Nuke
 
-protocol ImageLoaderManagerProtocol {
-    func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void)
-}
-
-class ImageLoaderManager: ImageLoaderManagerProtocol {
-
-    private let iconCacheManager: IconCacheManagerProtocol
+class ImageLoaderManager {
     
-    init(iconCacheManager: IconCacheManagerProtocol) {
-        self.iconCacheManager = iconCacheManager
-    }
+    static let shared = ImageLoaderManager()
     
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
-        
-        if let cachedImage = iconCacheManager.image(for: urlString) {
-            completion(cachedImage)
-            return
-        }
-        
-        Task {
-            do {
-                let image = try await ImagePipeline.shared.image(for: url)
-                self.iconCacheManager.setImage(image, for: urlString)
-                completion(image)
-            } catch {
-                completion(nil)
+        if let image = ImagePipeline.shared.cache.cachedImage(for: ImageRequest(url: url))?.image {
+            completion(image)
+        } else {
+            ImagePipeline.shared.loadImage(with: url) { result in
+                switch result {
+                case .success(let response):
+                    completion(response.image)
+                case .failure:
+                    completion(nil)
+                }
             }
         }
     }

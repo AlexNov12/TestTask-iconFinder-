@@ -46,7 +46,6 @@ final class CancellableExecutor: CancellableExecutorProtocol {
         workItem.map {
             queue.asyncAfter(deadline: .now() + delay, execute: $0)
         }
-
     }
 
     func cancel() {

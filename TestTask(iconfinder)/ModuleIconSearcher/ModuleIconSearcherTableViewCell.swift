@@ -10,15 +10,15 @@ import Nuke
 
 final class ModuleIconSearcherTableViewCell: UITableViewCell {
     
-   static let iconCell = "ModuleIconSearcherTableViewCell"
-   
-   struct Model {
+    static let iconCell = "ModuleIconSearcherTableViewCell"
+    
+    struct Model {
         let imageURL: String
         let tags: String
         let sizeLabel: String
-   }
-   
-   private lazy var iconImageView: UIImageView = {
+    }
+    
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
@@ -26,25 +26,25 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
         imageView.addGestureRecognizer(tapGesture)
         return imageView
-   }()
-   
-   private lazy var sizeLabel: UILabel = {
+    }()
+    
+    private lazy var sizeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         return label
-   }()
-   
-   private lazy var tagsLabel: UILabel = {
-       let label = UILabel()
+    }()
+    
+    private lazy var tagsLabel: UILabel = {
+        let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         return label
-   }()
-   
-   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemBackground
         backgroundColor = .systemBackground
@@ -52,8 +52,8 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         tintColor = .systemRed
         
         setupSubviews()
-   }
-   
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -71,11 +71,9 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
             return
         }
         
-        Task {
-            do {
-                iconImageView.image = try await ImagePipeline.shared.image(for: url)
-            } catch {
-                iconImageView.image = nil
+        ImageLoaderManager.shared.loadImage(from:urlString) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.iconImageView.image = image
             }
         }
     }
@@ -113,7 +111,7 @@ private extension ModuleIconSearcherTableViewCell {
             tagsLabel.topAnchor.constraint(equalTo: sizeLabel.bottomAnchor, constant: 8),
             tagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             tagsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            tagsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8) 
+            tagsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }
