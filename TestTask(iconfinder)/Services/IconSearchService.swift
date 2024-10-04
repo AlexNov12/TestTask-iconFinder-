@@ -13,14 +13,14 @@ protocol IconSearchServiceProtocol {
 
 final class IconSearchService: IconSearchServiceProtocol {
     
-    private let iconSearchRequestBuilder: IconSearchRequestBuilderProtocol
+    private let builder: RequestBuilder
     
-    init(iconSearchRequestBuilder: IconSearchRequestBuilderProtocol) {
-        self.iconSearchRequestBuilder = iconSearchRequestBuilder
+    init(iconSearchRequestBuilder: RequestBuilder) {
+        self.builder = iconSearchRequestBuilder
     }
     
     func searchIcons(query: String, count: Int, offset: Int, completion: @escaping (Result<IconResponse, Error>) -> Void) {
-        guard let request = iconSearchRequestBuilder.createRequest(query: query, count: count, offset: offset) else {
+        guard let request = builder.createRequest(query: query, count: count, offset: offset) else {
             completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
             return
         }

@@ -1,5 +1,5 @@
 //
-//  IconSearchRequestBuilder.swift
+//  RequestBuilder.swift
 //  TestTask(iconfinder)
 //
 //  Created by Александр Новиков on 30.09.2024.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol IconSearchRequestBuilderProtocol {
+protocol RequestBuilder {
     func createRequest(query: String, count: Int, offset: Int) -> URLRequest?
 }
 
-final class IconSearchRequestBuilder: IconSearchRequestBuilderProtocol {
+final class IconSearchRequestBuilder: RequestBuilder {
     
     private let apiKey = "E3fJGMECer2qkm3BYLdjFJMfDPM19qnKauakI7zqneuZPGldSBGUuGx4EXBbtIEB"
     private let baseURL = "https://api.iconfinder.com/v4/icons/search"

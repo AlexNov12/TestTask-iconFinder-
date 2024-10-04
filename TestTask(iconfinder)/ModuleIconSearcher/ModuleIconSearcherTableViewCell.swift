@@ -66,21 +66,26 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
     }
     
     private func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else {
+        guard URL(string: urlString) != nil else {
             iconImageView.image = nil
             return
         }
         
         ImageLoaderManager.shared.loadImage(from:urlString) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.iconImageView.image = image
-            }
+            self?.iconImageView.image = image
         }
     }
     
     @objc private func imageClicked() {
         guard let image = iconImageView.image else { return }
-        IconSavingManager.shared.saveToGallery(image: image)
+        SavingManager.shared.saveToGallery(image: image)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        iconImageView.image = nil
+        sizeLabel.text = nil
+        tagsLabel.text = nil
     }
 }
 

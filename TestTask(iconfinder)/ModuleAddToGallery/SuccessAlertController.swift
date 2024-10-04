@@ -9,8 +9,6 @@ import UIKit
 
 final class SuccessAlertController: UIViewController {
     
-    static let shared = SuccessAlertController()
-    
     func showSaveSuccessAlert() {
         let alertViewController = UIAlertController(
             title: "Success",

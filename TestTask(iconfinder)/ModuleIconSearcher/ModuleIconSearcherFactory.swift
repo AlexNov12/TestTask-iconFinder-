@@ -10,9 +10,9 @@ import UIKit
 final class ModuleIconSearcherFactory {
     
     static func make() -> UIViewController {
-        let iconSearchRequestBuilder: IconSearchRequestBuilderProtocol = IconSearchRequestBuilder()
-        let iconSearchService: IconSearchServiceProtocol = IconSearchService(iconSearchRequestBuilder: iconSearchRequestBuilder)
-        let debounceExecutor: CancellableExecutorProtocol = CancellableExecutor()
+        let iconSearchRequestBuilder = IconSearchRequestBuilder()
+        let iconSearchService = IconSearchService(iconSearchRequestBuilder: iconSearchRequestBuilder)
+        let debounceExecutor = CancellableExecutor()
         let presenter = ModuleIconSearcherPresenter(iconSearchService: iconSearchService, debounceExecutor: debounceExecutor)
         
         let vc = ModuleIconSearcherViewController(presenter: presenter)

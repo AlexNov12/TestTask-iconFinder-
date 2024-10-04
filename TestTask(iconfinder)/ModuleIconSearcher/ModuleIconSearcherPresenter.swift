@@ -17,7 +17,7 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
     weak var view: ModuleIconSearcherViewProtocol?
     private let iconSearchService: IconSearchServiceProtocol
     private let debounceExecutor: CancellableExecutorProtocol
-    private var icons: [IconModel] = []
+    private var icons: [IconResponse.IconModel] = []
     
     private var isLoading = false
     private var currentQuery: String = ""
@@ -34,9 +34,7 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
         
         guard !text.isEmpty else {
             icons.removeAll()
-            DispatchQueue.main.async {
-                self.view?.update(model: .init(items: []))
-            }
+            self.view?.showEmpty()
             return
         }
         
@@ -81,27 +79,19 @@ private extension ModuleIconSearcherPresenter {
         }
         
         let model: ModuleIconSearcherView.Model = .init(items: items)
-        DispatchQueue.main.async {
-            self.view?.update(model: model)
-            self.view?.hideLoading()
-        }
+        self.view?.update(model: model)
+        self.view?.hideLoading()
     }
     
     func loadMoreIcons() {
         guard !isLoading, !currentQuery.isEmpty else { return }
         isLoading = true
-        
-        DispatchQueue.main.async {
-            self.view?.showLoading()
-        }
+        self.view?.showLoading()
         
         iconSearchService.searchIcons(query: currentQuery, count: pageSize, offset: currentOffset) { [weak self] result in
             guard let self = self else { return }
             self.isLoading = false
-            
-            DispatchQueue.main.async {
-                self.view?.hideLoading()
-            }
+            self.view?.hideLoading()
             
             switch result {
             case .success(let response):
@@ -109,18 +99,13 @@ private extension ModuleIconSearcherPresenter {
                 self.icons.append(contentsOf: response.icons)
                 self.currentOffset += self.pageSize
                 if self.icons.isEmpty {
-                    DispatchQueue.main.async {
-                        self.view?.showEmpty(text: "No results found.")
-                    }
+                    self.view?.showEmpty()
                 } else {
                     self.updateUI()
                 }
             case .failure(let error):
                 print("Error fetching icons: \(error)")
-                DispatchQueue.main.async {
-                    self.view?.hideLoading()
                     self.view?.showError()
-                }
             }
         }
     }

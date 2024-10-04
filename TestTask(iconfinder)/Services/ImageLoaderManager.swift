@@ -17,16 +17,13 @@ class ImageLoaderManager {
             completion(nil)
             return
         }
-        if let image = ImagePipeline.shared.cache.cachedImage(for: ImageRequest(url: url))?.image {
-            completion(image)
-        } else {
-            ImagePipeline.shared.loadImage(with: url) { result in
-                switch result {
-                case .success(let response):
-                    completion(response.image)
-                case .failure:
-                    completion(nil)
-                }
+        
+        ImagePipeline.shared.loadImage(with: url) { result in
+            switch result {
+            case .success(let response):
+                completion(response.image)
+            case .failure:
+                completion(nil)
             }
         }
     }

@@ -69,9 +69,8 @@ final class ModuleIconSearcherView: UIView {
         bringSubviewToFront(errorView)
     }
     
-    func showEmpty(text: String) {
+    func showEmpty() {
         hideLoading()
-        emptyView.update(with: text)
         emptyView.isHidden = false
         tableView.isHidden = true
         bringSubviewToFront(emptyView)
@@ -89,13 +88,11 @@ final class ModuleIconSearcherView: UIView {
     
     func update(model: Model) {
         self.model = model
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.emptyView.isHidden = true
-            self.errorView.isHidden = true
-            self.tableView.isHidden = false
-            self.hideLoading()
-        }
+        self.tableView.reloadData()
+        self.emptyView.isHidden = true
+        self.errorView.isHidden = true
+        self.tableView.isHidden = false
+        self.hideLoading()
     }
 }
 
@@ -129,7 +126,7 @@ extension ModuleIconSearcherView: UITableViewDataSource {
 extension ModuleIconSearcherView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let model = model else { return }
+        guard model != nil else { return }
         let position = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         

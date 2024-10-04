@@ -9,8 +9,6 @@ import UIKit
 
 final class PermissionAlertController: UIViewController {
     
-    static let shared = PermissionAlertController()
-    
     func showAccessAlert() {
         let alertViewController = UIAlertController(
             title: "Permit requirement",
