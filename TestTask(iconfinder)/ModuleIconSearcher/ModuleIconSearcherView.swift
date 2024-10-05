@@ -16,6 +16,7 @@ final class ModuleIconSearcherView: UIView {
     }
     
     private var model: Model?
+    private var isLoadingMoreData = false
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,9 +24,15 @@ final class ModuleIconSearcherView: UIView {
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
         layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - 48) / 2, height: 250)
+        layout.footerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ModuleIconSearcherCollectionViewCell.self, forCellWithReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell)
+        view.register(
+            LoadingFooterView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: LoadingFooterView.identifier
+        )
         view.backgroundColor = .systemBackground
         view.showsVerticalScrollIndicator = false
         view.dataSource = self
@@ -98,6 +105,11 @@ final class ModuleIconSearcherView: UIView {
         self.collectionView.isHidden = false
         self.hideLoading()
     }
+    
+    func setLoadingMore(_ isLoading: Bool) {
+        isLoadingMoreData = isLoading
+        collectionView.reloadSections(IndexSet(integer: 0))
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -121,19 +133,40 @@ extension ModuleIconSearcherView: UICollectionViewDataSource {
         cell.update(with: cellModel)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter, isLoadingMoreData {
+            let footerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: LoadingFooterView.identifier,
+                for: indexPath
+            ) as! LoadingFooterView
+            return footerView
+        }
+        return UICollectionReusableView()
+    }
 }
 
 // MARK: - UIScrollViewDelegate
 extension ModuleIconSearcherView: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard model != nil else { return }
-        let position = scrollView.contentOffset.y
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
         
-        if position > contentHeight - scrollView.frame.size.height * 4 {
+        if offsetY > contentHeight - height {
             presenter.loadMoreIconsIfNeeded()
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ModuleIconSearcherView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        return isLoadingMoreData ? CGSize(width: collectionView.bounds.width, height: 50) : .zero
     }
 }
 
@@ -187,7 +220,6 @@ private extension ModuleIconSearcherView {
         ])
     }
 }
-
 
 extension ModuleIconSearcherView: ErrorViewDelegate {
     func didTapRetry() {

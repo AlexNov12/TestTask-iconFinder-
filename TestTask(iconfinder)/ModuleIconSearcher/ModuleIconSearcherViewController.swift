@@ -13,6 +13,7 @@ protocol ModuleIconSearcherViewProtocol: AnyObject {
     func hideLoading()
     func showError()
     func showEmpty(for state: EmptyView.EmptyState)
+    func setLoadingMore(_ isLoading: Bool)
 }
 
 final class ModuleIconSearcherViewController: UIViewController {
@@ -85,5 +86,9 @@ extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
     
     func showEmpty(for state: EmptyView.EmptyState) {
         customView.showEmpty(for: state)
+    }
+    
+    func setLoadingMore(_ isLoading: Bool) {
+        customView.setLoadingMore(isLoading)
     }
 }

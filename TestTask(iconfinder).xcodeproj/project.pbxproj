@@ -32,6 +32,7 @@
 		B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA392CAB326000285D93 /* EmptyView.swift */; };
 		B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA3B2CAB329700285D93 /* LoadingView.swift */; };
 		B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */; };
+		B394EA472CB1757000285D93 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA462CB1757000285D93 /* LoadingFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B394EA392CAB326000285D93 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B394EA3B2CAB329700285D93 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherCollectionViewCell.swift; sourceTree = "<group>"; };
+		B394EA462CB1757000285D93 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,8 @@
 		B322BE812C975FB300660A53 /* TestTask(iconfinder) */ = {
 			isa = PBXGroup;
 			children = (
-				B394EA3F2CAF144500285D93 /* Views */,
 				B394E9F62C98AA1900285D93 /* Models.swift */,
+				B394EA3F2CAF144500285D93 /* Views */,
 				B322BE962C975FCB00660A53 /* Services */,
 				B394EA072C98AE2600285D93 /* ModuleAddToGallery */,
 				B394E9FA2C98ABD900285D93 /* ModuleIconSearcher */,
@@ -146,6 +148,7 @@
 				B394EA372CAB323900285D93 /* ErrorView.swift */,
 				B394EA392CAB326000285D93 /* EmptyView.swift */,
 				B394EA3B2CAB329700285D93 /* LoadingView.swift */,
+				B394EA462CB1757000285D93 /* LoadingFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */,
 				B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */,
 				B394EA382CAB323900285D93 /* ErrorView.swift in Sources */,
+				B394EA472CB1757000285D93 /* LoadingFooterView.swift in Sources */,
 				B394EA352CAB16E100285D93 /* RequestBuilder.swift in Sources */,
 				B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */,
 				B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */,

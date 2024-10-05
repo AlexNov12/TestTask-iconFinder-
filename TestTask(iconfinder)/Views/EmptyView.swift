@@ -44,12 +44,12 @@ final class EmptyView: UIView {
     
     func updateLabel(for state: EmptyState) {
         switch state {
-            case .emptyState:
-                messageLabel.text = "It's empty. Start the search."
-                placeholderImageView.image = UIImage(systemName: "photo")
-            case .emptySearchState:
-                messageLabel.text = "No result. Try another one."
-                placeholderImageView.image = UIImage(systemName: "minus.magnifyingglass")
+        case .emptyState:
+            messageLabel.text = "It's empty. Start the search."
+            placeholderImageView.image = UIImage(systemName: "photo")
+        case .emptySearchState:
+            messageLabel.text = "No result. Try another one."
+            placeholderImageView.image = UIImage(systemName: "minus.magnifyingglass")
         }
     }
 }
