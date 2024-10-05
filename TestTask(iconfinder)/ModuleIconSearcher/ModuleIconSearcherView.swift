@@ -69,8 +69,9 @@ final class ModuleIconSearcherView: UIView {
         bringSubviewToFront(errorView)
     }
     
-    func showEmpty() {
+    func showEmpty(for state: EmptyView.EmptyState) {
         hideLoading()
+        emptyView.updateLabel(for: state)
         emptyView.isHidden = false
         tableView.isHidden = true
         bringSubviewToFront(emptyView)

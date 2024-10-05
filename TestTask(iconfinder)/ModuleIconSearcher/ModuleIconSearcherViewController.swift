@@ -12,7 +12,7 @@ protocol ModuleIconSearcherViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showError()
-    func showEmpty()
+    func showEmpty(for state: EmptyView.EmptyState)
 }
 
 final class ModuleIconSearcherViewController: UIViewController {
@@ -37,6 +37,7 @@ final class ModuleIconSearcherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        customView.showEmpty(for: .emptyState)
     }
     
     private func setupSearchBar() {
@@ -56,13 +57,13 @@ extension ModuleIconSearcherViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.searchIcons(with: searchText)
         if searchText.isEmpty {
-            customView.showEmpty()
+            customView.showEmpty(for: .emptyState)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter.searchIcons(with: "")
-        customView.showEmpty()
+        customView.showEmpty(for: .emptyState)
     }
 }
 
@@ -82,7 +83,7 @@ extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
         customView.showError()
     }
     
-    func showEmpty() {
-        customView.showEmpty()
+    func showEmpty(for state: EmptyView.EmptyState) {
+        customView.showEmpty(for: state)
     }
 }

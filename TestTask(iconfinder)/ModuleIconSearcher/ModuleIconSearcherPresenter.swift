@@ -23,7 +23,7 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
     private var currentQuery: String = ""
     private var totalIconsCount = 0
     private var currentOffset = 0
-    private let pageSize = 5
+    private let pageSize = 10
     
     required init(iconSearchService: IconSearchServiceProtocol, debounceExecutor: CancellableExecutorProtocol) {
         self.iconSearchService = iconSearchService
@@ -34,7 +34,7 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
         
         guard !text.isEmpty else {
             icons.removeAll()
-            self.view?.showEmpty()
+            self.view?.showEmpty(for: .emptyState)
             return
         }
         
@@ -90,22 +90,24 @@ private extension ModuleIconSearcherPresenter {
         
         iconSearchService.searchIcons(query: currentQuery, count: pageSize, offset: currentOffset) { [weak self] result in
             guard let self = self else { return }
-            self.isLoading = false
-            self.view?.hideLoading()
-            
-            switch result {
-            case .success(let response):
-                self.totalIconsCount = response.totalCount
-                self.icons.append(contentsOf: response.icons)
-                self.currentOffset += self.pageSize
-                if self.icons.isEmpty {
-                    self.view?.showEmpty()
-                } else {
-                    self.updateUI()
-                }
-            case .failure(let error):
-                print("Error fetching icons: \(error)")
+            DispatchQueue.main.async {
+                self.isLoading = false
+                self.view?.hideLoading()
+                
+                switch result {
+                case .success(let response):
+                    self.totalIconsCount = response.totalCount
+                    self.icons.append(contentsOf: response.icons)
+                    self.currentOffset += self.pageSize
+                    if self.icons.isEmpty {
+                        self.view?.showEmpty(for: .emptySearchState)
+                    } else {
+                        self.updateUI()
+                    }
+                case .failure(let error):
+                    print("Error fetching icons: \(error)")
                     self.view?.showError()
+                }
             }
         }
     }
