@@ -1,23 +1,23 @@
 //
-//  ModuleIconSearcherTableViewCell.swift
+//  ModuleIconSearcherCollectionViewCell.swift
 //  TestTask(iconfinder)
 //
-//  Created by Александр Новиков on 16.09.2024.
+//  Created by Александр Новиков on 05.10.2024.
 //
 
 import UIKit
 import Nuke
 
-final class ModuleIconSearcherTableViewCell: UITableViewCell {
-    
-    static let iconCell = "ModuleIconSearcherTableViewCell"
-    
+final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
+
+    static let iconCell = "ModuleIconSearcherCollectionViewCell"
+
     struct Model {
         let imageURL: String
         let tags: String
         let sizeLabel: String
     }
-    
+
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
@@ -27,92 +27,88 @@ final class ModuleIconSearcherTableViewCell: UITableViewCell {
         imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
-    
+
     private lazy var sizeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.numberOfLines = 1
         return label
     }()
-    
+
     private lazy var tagsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.numberOfLines = 1
         return label
     }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         contentView.backgroundColor = .systemBackground
-        backgroundColor = .systemBackground
-        selectionStyle = .none
-        tintColor = .systemRed
-        
         setupSubviews()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func update(with model: Model) {
-        loadImage(from: model.imageURL)
-        sizeLabel.text = model.sizeLabel
-        tagsLabel.text = model.tags
-    }
-    
-    private func loadImage(from urlString: String) {
-        guard URL(string: urlString) != nil else {
-            iconImageView.image = nil
-            return
-        }
-        
-        ImageLoaderManager.shared.loadImage(from:urlString) { [weak self] image in
-            self?.iconImageView.image = image
-        }
-    }
-    
-    @objc private func imageClicked() {
-        guard let image = iconImageView.image else { return }
-        SavingManager.shared.saveToGallery(image: image)
-    }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImageView.image = nil
         sizeLabel.text = nil
         tagsLabel.text = nil
     }
+
+    func update(with model: Model) {
+        loadImage(from: model.imageURL)
+        sizeLabel.text = model.sizeLabel
+        tagsLabel.text = model.tags
+    }
 }
 
-private extension ModuleIconSearcherTableViewCell {
+private extension ModuleIconSearcherCollectionViewCell {
+
+    func loadImage(from urlString: String) {
+        guard URL(string: urlString) != nil else {
+            iconImageView.image = nil
+            return
+        }
+
+        ImageLoaderManager.shared.loadImage(from: urlString) { [weak self] image in
+            self?.iconImageView.image = image
+        }
+    }
+
+    @objc func imageClicked() {
+        guard let image = iconImageView.image else { return }
+        SavingManager.shared.saveToGallery(image: image)
+    }
+
     func setupSubviews() {
         contentView.addSubview(iconImageView)
         contentView.addSubview(sizeLabel)
         contentView.addSubview(tagsLabel)
         setupConstraints()
     }
-    
+
     func setupConstraints() {
-        
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         sizeLabel.translatesAutoresizingMaskIntoConstraints = false
         tagsLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             iconImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            iconImageView.heightAnchor.constraint(equalToConstant: 200),
-            
+            iconImageView.heightAnchor.constraint(equalToConstant: 150),
+
             sizeLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 8),
             sizeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             sizeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            
+
             tagsLabel.topAnchor.constraint(equalTo: sizeLabel.bottomAnchor, constant: 8),
             tagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             tagsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),

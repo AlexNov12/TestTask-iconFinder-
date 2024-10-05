@@ -64,7 +64,7 @@ private extension ModuleIconSearcherPresenter {
     
     func updateUI() {
         guard !icons.isEmpty else { return }
-        let items: [ModuleIconSearcherTableViewCell.Model] = icons.map { icon in
+        let items: [ModuleIconSearcherCollectionViewCell.Model] = icons.map { icon in
             let imageURL = icon.sizes.last?.formats.last?.previewURL ?? ""
             var sizeLabel = "No format available"
             if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height {
@@ -80,7 +80,6 @@ private extension ModuleIconSearcherPresenter {
         
         let model: ModuleIconSearcherView.Model = .init(items: items)
         self.view?.update(model: model)
-        self.view?.hideLoading()
     }
     
     func loadMoreIcons() {

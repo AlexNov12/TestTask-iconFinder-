@@ -16,7 +16,6 @@
 		B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FD2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift */; };
 		B394EA002C98AC2600285D93 /* ModuleIconSearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */; };
 		B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */; };
-		B394EA062C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA052C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift */; };
 		B394EA092C98AE4200285D93 /* SavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* SavingManager.swift */; };
 		B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */; };
 		B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */; };
@@ -32,6 +31,7 @@
 		B394EA382CAB323900285D93 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA372CAB323900285D93 /* ErrorView.swift */; };
 		B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA392CAB326000285D93 /* EmptyView.swift */; };
 		B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA3B2CAB329700285D93 /* LoadingView.swift */; };
+		B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +46,6 @@
 		B394E9FD2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherPresenter.swift; sourceTree = "<group>"; };
 		B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherViewController.swift; sourceTree = "<group>"; };
 		B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherView.swift; sourceTree = "<group>"; };
-		B394EA052C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherTableViewCell.swift; sourceTree = "<group>"; };
 		B394EA082C98AE4200285D93 /* SavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingManager.swift; sourceTree = "<group>"; };
 		B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionAlertController.swift; sourceTree = "<group>"; };
 		B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertController.swift; sourceTree = "<group>"; };
@@ -56,6 +55,7 @@
 		B394EA372CAB323900285D93 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B394EA392CAB326000285D93 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B394EA3B2CAB329700285D93 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 				B394E9FD2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift */,
 				B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */,
 				B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */,
-				B394EA052C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift */,
+				B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */,
 			);
 			path = ModuleIconSearcher;
 			sourceTree = "<group>";
@@ -239,13 +239,13 @@
 				B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */,
 				B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */,
 				B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */,
-				B394EA062C98AE0D00285D93 /* ModuleIconSearcherTableViewCell.swift in Sources */,
 				B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */,
 				B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */,
 				B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */,
 				B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */,
 				B394EA382CAB323900285D93 /* ErrorView.swift in Sources */,
 				B394EA352CAB16E100285D93 /* RequestBuilder.swift in Sources */,
+				B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */,
 				B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */,
 				B394E9F72C98AA1900285D93 /* Models.swift in Sources */,
 				B394EA002C98AC2600285D93 /* ModuleIconSearcherViewController.swift in Sources */,

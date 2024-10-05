@@ -9,7 +9,7 @@ import UIKit
 
 final class ModuleIconSearcherView: UIView {
     
-    typealias Item = ModuleIconSearcherTableViewCell.Model
+    typealias Item = ModuleIconSearcherCollectionViewCell.Model
     
     struct Model {
         let items: [Item]
@@ -17,13 +17,16 @@ final class ModuleIconSearcherView: UIView {
     
     private var model: Model?
     
-    private lazy var tableView: UITableView = {
-        let view = UITableView()
-        view.register(ModuleIconSearcherTableViewCell.self, forCellReuseIdentifier: ModuleIconSearcherTableViewCell.iconCell)
-        view.separatorInset = .zero
-        view.tableFooterView = UIView()
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - 48) / 2, height: 250)
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(ModuleIconSearcherCollectionViewCell.self, forCellWithReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell)
         view.backgroundColor = .systemBackground
-        view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
         view.dataSource = self
         view.delegate = self
@@ -65,7 +68,7 @@ final class ModuleIconSearcherView: UIView {
     func showError() {
         hideLoading()
         errorView.isHidden = false
-        tableView.isHidden = true
+        collectionView.isHidden = true
         bringSubviewToFront(errorView)
     }
     
@@ -73,13 +76,13 @@ final class ModuleIconSearcherView: UIView {
         hideLoading()
         emptyView.updateLabel(for: state)
         emptyView.isHidden = false
-        tableView.isHidden = true
+        collectionView.isHidden = true
         bringSubviewToFront(emptyView)
     }
     
     func showLoading() {
         loadingView.isHidden = false
-        tableView.isHidden = true
+        collectionView.isHidden = true
         bringSubviewToFront(loadingView)
     }
     
@@ -89,30 +92,27 @@ final class ModuleIconSearcherView: UIView {
     
     func update(model: Model) {
         self.model = model
-        self.tableView.reloadData()
+        self.collectionView.reloadData()
         self.emptyView.isHidden = true
         self.errorView.isHidden = true
-        self.tableView.isHidden = false
+        self.collectionView.isHidden = false
         self.hideLoading()
     }
 }
 
-// MARK: - UITableViewDataSource
-extension ModuleIconSearcherView: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - UICollectionViewDataSource
+extension ModuleIconSearcherView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         model?.items.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let model = model, let cell = tableView.dequeueReusableCell(withIdentifier: ModuleIconSearcherTableViewCell.iconCell) as?
-                ModuleIconSearcherTableViewCell else {
-            return UITableViewCell()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let model = model, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell, for: indexPath) as? ModuleIconSearcherCollectionViewCell else {
+            return UICollectionViewCell()
         }
         
-        let item = model.items[indexPath.row]
-        
-        let cellModel = ModuleIconSearcherTableViewCell.Model(
+        let item = model.items[indexPath.item]
+        let cellModel = ModuleIconSearcherCollectionViewCell.Model(
             imageURL: item.imageURL,
             tags: item.tags,
             sizeLabel: item.sizeLabel
@@ -137,16 +137,14 @@ extension ModuleIconSearcherView: UIScrollViewDelegate {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension ModuleIconSearcherView: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+// MARK: - UICollectionViewDelegate
+extension ModuleIconSearcherView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 
 private extension ModuleIconSearcherView {
-    
     func commonInit() {
         backgroundColor = .systemBackground
         setupSubviews()
@@ -154,23 +152,23 @@ private extension ModuleIconSearcherView {
     }
     
     func setupSubviews() {
-        addSubview(tableView)
+        addSubview(collectionView)
         addSubview(loadingView)
         addSubview(errorView)
         addSubview(emptyView)
     }
     
     func setupConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         errorView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             loadingView.topAnchor.constraint(equalTo: topAnchor),
             loadingView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -189,6 +187,7 @@ private extension ModuleIconSearcherView {
         ])
     }
 }
+
 
 extension ModuleIconSearcherView: ErrorViewDelegate {
     func didTapRetry() {
