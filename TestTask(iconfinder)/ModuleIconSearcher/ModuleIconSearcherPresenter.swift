@@ -24,7 +24,6 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
     private var currentQuery: String = ""
     private var totalIconsCount = 0
     private var currentOffset = 0
-    private var isFirstLoad = true
     
     
     required init(iconSearchService: IconSearchServiceProtocol, debounceExecutor: CancellableExecutorProtocol) {
@@ -35,7 +34,6 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
     func searchIcons(with text: String) {
         
         guard !text.isEmpty else {
-            icons.removeAll()
             self.view?.showEmpty(for: .emptyState)
             return
         }
@@ -88,7 +86,7 @@ private extension ModuleIconSearcherPresenter {
         guard !isLoading, !currentQuery.isEmpty else { return }
         isLoading = true
         
-        if isFirstLoad {
+        if icons.isEmpty {
             self.view?.showLoading()
         } else {
             self.view?.setLoadingMore(true)
@@ -98,9 +96,8 @@ private extension ModuleIconSearcherPresenter {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isLoading = false
-                if self.isFirstLoad {
+                if self.icons.isEmpty {
                     self.view?.hideLoading()
-                    self.isFirstLoad = false
                 } else {
                     self.view?.setLoadingMore(false)
                 }

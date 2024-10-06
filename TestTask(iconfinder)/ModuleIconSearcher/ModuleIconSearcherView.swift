@@ -24,7 +24,7 @@ final class ModuleIconSearcherView: UIView {
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
         layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - 48) / 2, height: 250)
-        layout.footerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
+//        layout.footerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ModuleIconSearcherCollectionViewCell.self, forCellWithReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell)
@@ -108,7 +108,7 @@ final class ModuleIconSearcherView: UIView {
     
     func setLoadingMore(_ isLoading: Bool) {
         isLoadingMoreData = isLoading
-        collectionView.reloadSections(IndexSet(integer: 0))
+        collectionView.reloadData()
     }
 }
 
@@ -119,7 +119,8 @@ extension ModuleIconSearcherView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let model = model, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell, for: indexPath) as? ModuleIconSearcherCollectionViewCell else {
+        guard let model = model, 
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell, for: indexPath) as? ModuleIconSearcherCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -136,14 +137,20 @@ extension ModuleIconSearcherView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter, isLoadingMoreData {
-            let footerView = collectionView.dequeueReusableSupplementaryView(
+            guard let footerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: LoadingFooterView.identifier,
                 for: indexPath
-            ) as! LoadingFooterView
+            ) as? LoadingFooterView else {
+                fatalError("Could not dequeue LoadingFooterView")
+            }
             return footerView
         }
         return UICollectionReusableView()
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
 }
 

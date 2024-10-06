@@ -40,13 +40,13 @@ final class ErrorView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    @objc private func didTapRetry() {
-        delegate?.didTapRetry()
-    }
 }
 
 private extension ErrorView {
+    
+    @objc private func didTapRetry() {
+        delegate?.didTapRetry()
+    }
 
     func commonInit() {
         backgroundColor = .systemBackground
