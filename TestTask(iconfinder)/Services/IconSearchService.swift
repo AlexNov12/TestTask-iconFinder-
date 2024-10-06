@@ -8,23 +8,37 @@
 import Foundation
 
 protocol IconSearchServiceProtocol {
-    func searchIcons(query: String, count: Int, offset: Int, completion: @escaping (Result<IconResponse, Error>) -> Void)
+    func searchIcons(
+        query: String,
+        count: Int,
+        offset: Int,
+        completion: @escaping (Result<IconResponse, Error>) -> Void
+    )
 }
 
 final class IconSearchService: IconSearchServiceProtocol {
-    
+
     private let builder: RequestBuilder
-    
+
     init(iconSearchRequestBuilder: RequestBuilder) {
         self.builder = iconSearchRequestBuilder
     }
-    
-    func searchIcons(query: String, count: Int, offset: Int, completion: @escaping (Result<IconResponse, Error>) -> Void) {
-        guard let request = builder.createRequest(query: query, count: count, offset: offset) else {
+
+    func searchIcons(
+        query: String,
+        count: Int,
+        offset: Int,
+        completion: @escaping (Result<IconResponse, Error>) -> Void
+    ) {
+        guard let request = builder.createRequest(
+            query: query,
+            count: count,
+            offset: offset
+        ) else {
             completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
             return
         }
-        
+
         if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
             do {
                 let decoder = JSONDecoder()
@@ -35,22 +49,21 @@ final class IconSearchService: IconSearchServiceProtocol {
             }
             return
         }
-        
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-                                                              
+
             guard let data = data, let urlResponse = response else {
                 completion(.failure(NSError(domain: "No data", code: 0, userInfo: nil)))
                 return
             }
-                                                              
+
             do {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(IconResponse.self, from: data)
-                
                 let cachedResponse = CachedURLResponse(response: urlResponse, data: data)
                 URLCache.shared.storeCachedResponse(cachedResponse, for: request)
                 completion(.success(response))

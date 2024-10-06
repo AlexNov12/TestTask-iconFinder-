@@ -8,10 +8,10 @@
 import UIKit
 
 final class LoadingFooterView: UICollectionReusableView {
-    
+
     static let identifier = "LoadingFooterView"
-    
-    private lazy var activityIndicator: UIActivityIndicatorView = {
+
+    private lazy var footerIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.style = .medium
         indicator.hidesWhenStopped = true
@@ -20,12 +20,12 @@ final class LoadingFooterView: UICollectionReusableView {
         indicator.startAnimating()
         return indicator
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,22 +33,23 @@ final class LoadingFooterView: UICollectionReusableView {
 }
 
 private extension LoadingFooterView {
-    
+
     func commonInit() {
+        backgroundColor = .white
         setupSubviews()
         setupConstraints()
     }
-    
+
     func setupSubviews() {
-        addSubview(activityIndicator)
+        addSubview(footerIndicator)
     }
-    
+
     func setupConstraints() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
+        footerIndicator.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
+            footerIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            footerIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }

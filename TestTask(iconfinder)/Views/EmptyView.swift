@@ -23,7 +23,7 @@ final class EmptyView: UIView {
         label.numberOfLines = 0
         return label
     }()
-    
+
     private lazy var placeholderImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
@@ -41,8 +41,8 @@ final class EmptyView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func updateLabel(for state: EmptyState) {
+
+    func updateState(for state: EmptyState) {
         switch state {
         case .emptyState:
             messageLabel.text = "It's empty. Start the search."
@@ -70,13 +70,13 @@ private extension EmptyView {
     func setupConstraints() {
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -32),
             messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
+
             placeholderImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             placeholderImageView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 16),
             placeholderImageView.widthAnchor.constraint(equalToConstant: 40),

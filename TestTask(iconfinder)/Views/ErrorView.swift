@@ -43,10 +43,6 @@ final class ErrorView: UIView {
 }
 
 private extension ErrorView {
-    
-    @objc private func didTapRetry() {
-        delegate?.didTapRetry()
-    }
 
     func commonInit() {
         backgroundColor = .systemBackground
@@ -70,5 +66,9 @@ private extension ErrorView {
             retryButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 16),
             retryButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+    }
+
+    @objc func didTapRetry() {
+        delegate?.didTapRetry()
     }
 }

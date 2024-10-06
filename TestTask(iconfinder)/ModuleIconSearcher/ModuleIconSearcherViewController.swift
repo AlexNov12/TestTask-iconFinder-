@@ -17,30 +17,30 @@ protocol ModuleIconSearcherViewProtocol: AnyObject {
 }
 
 final class ModuleIconSearcherViewController: UIViewController {
-    
+
     private let presenter: ModuleIconSearcherPresenterProtocol
     private lazy var customView = ModuleIconSearcherView(presenter: presenter)
-    
+
     init(presenter: ModuleIconSearcherPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func loadView() {
         view = customView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
         customView.showEmpty(for: .emptyState)
     }
-    
+
     private func setupSearchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.hidesNavigationBarDuringPresentation = false
@@ -54,14 +54,14 @@ final class ModuleIconSearcherViewController: UIViewController {
 // MARK: UISearchBarDelegate
 
 extension ModuleIconSearcherViewController: UISearchBarDelegate {
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.searchIcons(with: searchText)
         if searchText.isEmpty {
             customView.showEmpty(for: .emptyState)
         }
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter.searchIcons(with: "")
         customView.showEmpty(for: .emptyState)
@@ -75,19 +75,19 @@ extension ModuleIconSearcherViewController: ModuleIconSearcherViewProtocol {
     func showLoading() {
         customView.showLoading()
     }
-    
+
     func hideLoading() {
         customView.hideLoading()
     }
-    
+
     func showError() {
         customView.showError()
     }
-    
+
     func showEmpty(for state: EmptyView.EmptyState) {
         customView.showEmpty(for: state)
     }
-    
+
     func setLoadingMore(_ isLoading: Bool) {
         customView.setLoadingMore(isLoading)
     }

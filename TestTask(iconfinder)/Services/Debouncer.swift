@@ -30,17 +30,17 @@ final class CancellableExecutor: CancellableExecutorProtocol {
     init(queue: DispatchQueue = .main) {
         self.queue = queue
     }
-    
+
     func execute(delay: DispatchTimeInterval, handler: @escaping (IsCancelled) -> Void) {
         cancel()
-        
+
         var workItem: DispatchWorkItem?
-        
+
         workItem = DispatchWorkItem {
             handler(workItem ?? StubIsCancelled(isCancelled: true))
             workItem = nil
         }
-        
+
         pendingWorkItem = workItem
 
         workItem.map {
@@ -55,7 +55,7 @@ final class CancellableExecutor: CancellableExecutorProtocol {
 }
 
 private extension CancellableExecutor {
-    
+
     struct StubIsCancelled: IsCancelled {
         let isCancelled: Bool
     }

@@ -25,6 +25,8 @@ final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
         imageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageClicked))
         imageView.addGestureRecognizer(tapGesture)
+        imageView.image = UIImage(systemName: "photo")
+        imageView.tintColor = .systemGray
         return imageView
     }()
 
@@ -57,7 +59,7 @@ final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        iconImageView.image = nil
+        iconImageView.image = UIImage(systemName: "photo")
         sizeLabel.text = nil
         tagsLabel.text = nil
     }

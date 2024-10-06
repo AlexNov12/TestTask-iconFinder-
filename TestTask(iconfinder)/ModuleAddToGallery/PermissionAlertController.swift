@@ -8,14 +8,15 @@
 import UIKit
 
 final class PermissionAlertController: UIViewController {
-    
+
     func showAccessAlert() {
+
         let alertViewController = UIAlertController(
             title: "Permit requirement",
             message: "To save icons, you need to get permission to access the library",
             preferredStyle: .alert
         )
-        
+
         let openSettingAction = UIAlertAction(
             title: "Open settings",
             style: .cancel
@@ -23,24 +24,25 @@ final class PermissionAlertController: UIViewController {
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
-            
+
             if UIApplication.shared.canOpenURL(settingsURL) {
                 UIApplication.shared.canOpenURL(settingsURL)
             }
         }
-        
+
         let cancel = UIAlertAction(
             title: "Cancel",
             style: .cancel,
             handler: nil
         )
-        
+
         alertViewController.addAction(openSettingAction)
         alertViewController.addAction(cancel)
-        
-        if let scene = UIApplication.shared.connectedScenes.first(where: {$0.activationState == .foregroundActive}) as? UIWindowScene,
-        let rootViewController = scene.windows.first?.rootViewController {
-            rootViewController.present(alertViewController, animated: true, completion: nil)
+
+        if let scene = UIApplication.shared.connectedScenes.first(
+            where: {$0.activationState == .foregroundActive}) as? UIWindowScene,
+            let rootViewController = scene.windows.first?.rootViewController {
+                rootViewController.present(alertViewController, animated: true, completion: nil)
         }
     }
 }

@@ -9,12 +9,12 @@ import UIKit
 import Photos
 
 final class SavingManager: NSObject {
-    
+
     private let permissionAlert = PermissionAlertController()
     private let successAlert = SuccessAlertController()
-    
+
     static let shared = SavingManager()
-    
+
     func saveToGallery(image: UIImage) {
         if PHPhotoLibrary.authorizationStatus() == .denied || PHPhotoLibrary.authorizationStatus() == .restricted {
             permissionAlert.showAccessAlert()
@@ -22,7 +22,7 @@ final class SavingManager: NSObject {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveCompleted), nil)
         }
     }
-    
+
     @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         successAlert.showSaveSuccessAlert()
     }

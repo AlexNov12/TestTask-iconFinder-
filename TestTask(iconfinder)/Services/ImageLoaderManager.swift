@@ -9,15 +9,15 @@ import UIKit
 import Nuke
 
 class ImageLoaderManager {
-    
+
     static let shared = ImageLoaderManager()
-    
+
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
-        
+
         ImagePipeline.shared.loadImage(with: url) { result in
             switch result {
             case .success(let response):

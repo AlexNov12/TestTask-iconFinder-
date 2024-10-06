@@ -45,7 +45,7 @@ private extension LoadingView {
 
     func setupConstraints() {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)

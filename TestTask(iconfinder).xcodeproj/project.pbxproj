@@ -167,6 +167,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B394EA4B2CB2501E00285D93 /* PBXTargetDependency */,
 			);
 			name = "TestTask(iconfinder)";
 			packageProductDependencies = (
@@ -257,6 +258,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B394EA4B2CB2501E00285D93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = B394EA4A2CB2501E00285D93 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B322BE8D2C975FB400660A53 /* LaunchScreen.storyboard */ = {
@@ -519,6 +527,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B394EA152C9FEFE200285D93 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = NukeVideo;
+		};
+		B394EA4A2CB2501E00285D93 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B394EA122C9FEDE900285D93 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
