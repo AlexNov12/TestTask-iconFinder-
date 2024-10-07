@@ -32,17 +32,19 @@ final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
     }
 
     func searchIcons(with text: String) {
+        icons.removeAll()
 
         guard !text.isEmpty else {
-            self.view?.showEmpty(for: .emptyState)
+            view?.showEmpty(for: .emptyState)
             return
         }
 
         currentQuery = text
         currentOffset = 0
         totalIconsCount = 0
-        icons.removeAll()
+
         view?.update(model: .init(items: []))
+        view?.showLoading()
 
         debounceExecutor.execute(delay: .milliseconds(1000)) { [weak self] isCancelled in
             guard let self = self, !isCancelled.isCancelled else { return }
@@ -68,9 +70,7 @@ private extension ModuleIconSearcherPresenter {
         }
         isLoading = true
 
-        if icons.isEmpty {
-            self.view?.showLoading()
-        } else {
+        if !icons.isEmpty {
             self.view?.setLoadingMore(true)
         }
 
@@ -81,9 +81,8 @@ private extension ModuleIconSearcherPresenter {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isLoading = false
-                if self.icons.isEmpty {
-                    self.view?.hideLoading()
-                } else {
+                self.view?.hideLoading()
+                if !self.icons.isEmpty {
                     self.view?.setLoadingMore(false)
                 }
 

@@ -10,6 +10,7 @@ import Nuke
 
 final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
 
+    private var task: ImageTask?
     static let iconCell = "ModuleIconSearcherCollectionViewCell"
 
     struct Model {
@@ -59,6 +60,7 @@ final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        task?.cancel()
         iconImageView.image = UIImage(systemName: "photo")
         sizeLabel.text = nil
         tagsLabel.text = nil
@@ -74,13 +76,24 @@ final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
 private extension ModuleIconSearcherCollectionViewCell {
 
     func loadImage(from urlString: String) {
-        guard URL(string: urlString) != nil else {
+        prepareForReuse()
+
+        guard let url = URL(string: urlString) else {
             iconImageView.image = nil
             return
         }
 
-        ImageLoaderManager.shared.loadImage(from: urlString) { [weak self] image in
-            self?.iconImageView.image = image
+        if let image = ImagePipeline.shared.cache.cachedImage(for: ImageRequest(url: url))?.image {
+            self.iconImageView.image = image
+            return
+        }
+        task = ImagePipeline.shared.loadImage(with: url) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.iconImageView.image = response.image
+            case .failure:
+                self?.iconImageView.image = UIImage(systemName: "exclamationmark.triangle.fill")
+            }
         }
     }
 

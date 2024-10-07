@@ -19,7 +19,6 @@
 		B394EA092C98AE4200285D93 /* SavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* SavingManager.swift */; };
 		B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */; };
 		B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */; };
-		B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */; };
 		B394EA172C9FEFE200285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA162C9FEFE200285D93 /* Nuke */; };
 		B394EA192C9FEFE200285D93 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA182C9FEFE200285D93 /* NukeExtensions */; };
 		B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA1A2CA14B7700285D93 /* Debouncer.swift */; };
@@ -50,7 +49,6 @@
 		B394EA082C98AE4200285D93 /* SavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingManager.swift; sourceTree = "<group>"; };
 		B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionAlertController.swift; sourceTree = "<group>"; };
 		B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertController.swift; sourceTree = "<group>"; };
-		B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderManager.swift; sourceTree = "<group>"; };
 		B394EA1A2CA14B7700285D93 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		B394EA342CAB16E100285D93 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		B394EA372CAB323900285D93 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			children = (
 				B394E9F82C98AA4300285D93 /* IconSearchService.swift */,
 				B394EA342CAB16E100285D93 /* RequestBuilder.swift */,
-				B394EA0E2C98AF4000285D93 /* ImageLoaderManager.swift */,
 				B394EA1A2CA14B7700285D93 /* Debouncer.swift */,
 			);
 			path = Services;
@@ -243,7 +240,6 @@
 				B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */,
 				B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */,
 				B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */,
-				B394EA0F2C98AF4000285D93 /* ImageLoaderManager.swift in Sources */,
 				B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */,
 				B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */,
 				B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */,
