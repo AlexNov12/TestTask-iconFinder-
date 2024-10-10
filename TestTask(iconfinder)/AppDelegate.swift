@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let iconSearcherModule = ModuleIconSearcherFactory.make()
+        let iconSearcherModule = ModuleIconSearcherFactory().make()
 
         let nav = UINavigationController(rootViewController: iconSearcherModule)
 

@@ -71,13 +71,14 @@ private extension ModuleIconSearcherPresenter {
         isLoading = true
 
         if !icons.isEmpty {
-            self.view?.setLoadingMore(true)
+            view?.setLoadingMore(true)
         }
 
         iconSearchService.searchIcons(
             query: currentQuery,
             count: pageSize,
-            offset: currentOffset) { [weak self] result in
+            offset: currentOffset
+        ) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -91,11 +92,7 @@ private extension ModuleIconSearcherPresenter {
                     self.totalIconsCount = response.totalCount
                     self.icons.append(contentsOf: response.icons)
                     self.currentOffset += self.pageSize
-                    if self.icons.isEmpty {
-                        self.view?.showEmpty(for: .emptySearchState)
-                    } else {
-                        self.updateUI()
-                    }
+                    self.updateUI()
                 case .failure(let error):
                     print("Error fetching icons: \(error)")
                     self.view?.showError()
@@ -105,12 +102,17 @@ private extension ModuleIconSearcherPresenter {
     }
 
     func updateUI() {
-        guard !icons.isEmpty else { return }
+        guard !icons.isEmpty else {
+            view?.showEmpty(for: .emptySearchState)
+            return
+        }
         let items: [ModuleIconSearcherCollectionViewCell.Model] = icons.map { icon in
             let imageURL = icon.sizes.last?.formats.last?.previewURL ?? ""
-            var sizeLabel = "No format available"
+            let sizeLabel: String
             if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height {
                 sizeLabel = "\(width)x\(height)"
+            } else {
+                sizeLabel  = "No format available"
             }
 
             return .init(
@@ -121,6 +123,6 @@ private extension ModuleIconSearcherPresenter {
         }
 
         let model: ModuleIconSearcherView.Model = .init(items: items)
-        self.view?.update(model: model)
+        view?.update(model: model)
     }
 }

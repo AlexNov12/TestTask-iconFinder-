@@ -10,8 +10,8 @@ import Nuke
 
 final class ModuleIconSearcherCollectionViewCell: UICollectionViewCell {
 
-    private var task: ImageTask?
     static let iconCell = "ModuleIconSearcherCollectionViewCell"
+    private var task: ImageTask?
 
     struct Model {
         let imageURL: String

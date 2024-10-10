@@ -77,7 +77,6 @@ final class ModuleIconSearcherView: UIView {
     func showError() {
         hideLoading()
         errorView.isHidden = false
-        collectionView.isHidden = true
         bringSubviewToFront(errorView)
     }
 
@@ -85,13 +84,11 @@ final class ModuleIconSearcherView: UIView {
         hideLoading()
         emptyView.updateState(for: state)
         emptyView.isHidden = false
-        collectionView.isHidden = true
         bringSubviewToFront(emptyView)
     }
 
     func showLoading() {
         loadingView.isHidden = false
-        collectionView.isHidden = true
         bringSubviewToFront(loadingView)
     }
 
@@ -101,11 +98,10 @@ final class ModuleIconSearcherView: UIView {
 
     func update(model: Model) {
         self.model = model
-        self.collectionView.reloadData()
-        self.emptyView.isHidden = true
-        self.errorView.isHidden = true
-        self.collectionView.isHidden = false
-        self.hideLoading()
+        collectionView.reloadData()
+        emptyView.isHidden = true
+        errorView.isHidden = true
+        hideLoading()
     }
 
     func setLoadingMore(_ isLoading: Bool) {

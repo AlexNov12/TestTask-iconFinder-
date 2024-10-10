@@ -9,7 +9,7 @@ import UIKit
 
 final class ModuleIconSearcherFactory {
 
-    static func make() -> UIViewController {
+    func make() -> UIViewController {
         let iconSearchRequestBuilder = IconSearchRequestBuilder()
         let iconSearchService = IconSearchService(iconSearchRequestBuilder: iconSearchRequestBuilder)
         let debounceExecutor = CancellableExecutor()
