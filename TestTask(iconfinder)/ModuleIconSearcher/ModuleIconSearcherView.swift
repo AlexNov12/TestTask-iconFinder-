@@ -39,6 +39,7 @@ final class ModuleIconSearcherView: UIView {
         view.showsVerticalScrollIndicator = false
         view.dataSource = self
         view.delegate = self
+        view.prefetchDataSource = self
         return view
     }()
 
@@ -160,17 +161,13 @@ extension ModuleIconSearcherView: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-extension ModuleIconSearcherView: UIScrollViewDelegate {
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height
-
-        if offsetY > contentHeight - height {
-            presenter.loadMoreIcons()
-        }
+// MARK: - UICollectionViewDataSourcePrefetching
+extension ModuleIconSearcherView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let rows = indexPaths.map { $0.row }
+        guard let index = rows.max() else { return }
+        print("Prefetching data for index \(index)")
+        presenter.loadMoreIcons()
     }
 }
 
