@@ -5,124 +5,139 @@
 //  Created by Александр Новиков on 16.09.2024.
 //
 
+import Foundation
 import UIKit
 
 protocol ModuleIconSearcherPresenterProtocol {
-    func searchIcons(with text: String)
-    func loadMoreIcons()
+
+    func request(query: String)
+    func requestNext()
+    func requestClearSearch()
+
+    func viewDidLoad()
     func retryLoading()
 }
 
 final class ModuleIconSearcherPresenter: ModuleIconSearcherPresenterProtocol {
 
     weak var view: ModuleIconSearcherViewProtocol?
-    private let iconSearchService: IconSearchServiceProtocol
-    private let debounceExecutor: CancellableExecutorProtocol
-    private var icons: [IconResponse.IconModel] = []
+    private let service: IconSearchServiceProtocol
 
-    private let pageSize = 10
-    private var isLoading = false
-    private var currentQuery: String = ""
-    private var totalIconsCount = 0
-    private var currentOffset = 0
+    private var isRequestProcessing = false
 
-    required init(iconSearchService: IconSearchServiceProtocol, debounceExecutor: CancellableExecutorProtocol) {
-        self.iconSearchService = iconSearchService
-        self.debounceExecutor = debounceExecutor
+    private var icons = [IconResponse.IconModel]()
+
+    required init(service: IconSearchServiceProtocol) {
+        self.service = service
     }
 
-    func searchIcons(with text: String) {
-        icons.removeAll()
+    func viewDidLoad() {
+        updateViewWithEmpty()
+    }
 
-        guard !text.isEmpty else {
-            view?.showEmpty(for: .emptyState)
+    func request(query: String) {
+        guard !query.isEmpty else {
+            requestClearSearch()
             return
         }
-
-        currentQuery = text
-        currentOffset = 0
-        totalIconsCount = 0
-
-        view?.update(model: .init(items: []))
-        view?.showLoading()
-
-        debounceExecutor.execute(delay: .milliseconds(1000)) { [weak self] isCancelled in
-            guard let self = self, !isCancelled.isCancelled else { return }
-            self.loadIcons()
+        processBeforeRequest()
+        service.requestIcon(query: query) { [weak self] response in
+            self?.processServiceResponse(response: response)
         }
     }
 
-    func loadMoreIcons() {
-        guard icons.count < totalIconsCount else { return }
-        loadIcons()
+    func requestNext() {
+        guard !isRequestProcessing else { return }
+
+        processBeforeRequest(isShowLoading: false)
+
+        service.requestNext { [weak self] response in
+            self?.processServiceResponse(response: response)
+        }
+    }
+
+    func requestClearSearch() {
+        icons.removeAll()
+        service.resetSeatch()
+        updateViewWithEmpty()
     }
 
     func retryLoading() {
-        loadIcons()
+        requestNext()
     }
 }
 
 private extension ModuleIconSearcherPresenter {
 
-    func loadIcons() {
-        guard !isLoading, !currentQuery.isEmpty else {
+    func processServiceResponse(response: Result<[IconResponse.IconModel], Error>) {
+        guard case let .success(model) = response else {
+            self.isRequestProcessing = false
+            self.view?.showError()
             return
         }
-        isLoading = true
 
-        if !icons.isEmpty {
-            view?.setLoadingMore(true)
-        }
-
-        iconSearchService.searchIcons(
-            query: currentQuery,
-            count: pageSize,
-            offset: currentOffset
-        ) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.view?.hideLoading()
-                if !self.icons.isEmpty {
-                    self.view?.setLoadingMore(false)
-                }
-
-                switch result {
-                case .success(let response):
-                    self.totalIconsCount = response.totalCount
-                    self.icons.append(contentsOf: response.icons)
-                    self.currentOffset += self.pageSize
-                    self.updateUI()
-                case .failure(let error):
-                    print("Error fetching icons: \(error)")
-                    self.view?.showError()
-                }
-            }
-        }
-    }
-
-    func updateUI() {
-        guard !icons.isEmpty else {
-            view?.showEmpty(for: .emptySearchState)
-            return
-        }
-        let items: [ModuleIconSearcherCollectionViewCell.Model] = icons.map { icon in
-            let imageURL = icon.sizes.last?.formats.last?.previewURL ?? ""
+        let items: [ModuleIconSearcherCollectionViewCell.Model] = model.compactMap { (item: IconResponse.IconModel) in
+            let imageURL = item.sizes.last?.formats.last?.previewURL ?? ""
+            let tags = "Tags: \(item.tags.prefix(10).joined(separator: ", "))"
             let sizeLabel: String
-            if let width = icon.sizes.last?.width, let height = icon.sizes.last?.height {
+            if let width = item.sizes.last?.width, let height = item.sizes.last?.height {
                 sizeLabel = "\(width)x\(height)"
             } else {
                 sizeLabel  = "No format available"
             }
 
-            return .init(
+            return ModuleIconSearcherCollectionViewCell.Model(
                 imageURL: imageURL,
-                tags: "Tags: \(icon.tags.prefix(10).joined(separator: ", "))",
+                tags: tags,
                 sizeLabel: sizeLabel
             )
         }
 
-        let model: ModuleIconSearcherView.Model = .init(items: items)
+        icons = model
+        isRequestProcessing = false
+
+        self.view?.hideLoading()
+        self.updateView(items: items)
+    }
+
+    func updateView(items: [ModuleIconSearcherCollectionViewCell.Model]) {
+
+        guard !items.isEmpty else {
+            view?.showEmpty(for: .emptySearchState)
+            return
+        }
+
+        let model = makeIconsCollectionModel(items: items)
+
         view?.update(model: model)
+    }
+
+    func updateViewWithEmpty() {
+        let model = makeIconsCollectionModel(items: [])
+
+        view?.update(model: model)
+        view?.showEmpty(for: .emptyState)
+    }
+
+    func makeIconsCollectionModel(items: [ModuleIconSearcherCollectionViewCell.Model]) -> ModuleIconSearcherView.Model {
+        let model = ModuleIconSearcherView.Model(
+            items: items,
+            onRequestData: { [weak self] index in
+                self?.processDataRequest(index: index)
+            }
+        )
+        return model
+    }
+
+    func processDataRequest(index: Int) {
+        guard index >= icons.count - 1 else { return }
+        requestNext()
+    }
+
+    func processBeforeRequest(isShowLoading: Bool = true) {
+        isRequestProcessing = true
+        if isShowLoading {
+            view?.showLoading()
+        }
     }
 }

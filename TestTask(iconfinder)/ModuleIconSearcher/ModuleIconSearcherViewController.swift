@@ -56,14 +56,14 @@ final class ModuleIconSearcherViewController: UIViewController {
 extension ModuleIconSearcherViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        presenter.searchIcons(with: searchText)
+        presenter.request(query: searchText)
         if searchText.isEmpty {
             customView.showEmpty(for: .emptyState)
         }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        presenter.searchIcons(with: "")
+        presenter.request(query: "")
         customView.showEmpty(for: .emptyState)
     }
 }

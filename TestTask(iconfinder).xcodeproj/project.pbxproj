@@ -11,12 +11,12 @@
 		B322BE8C2C975FB400660A53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B322BE8B2C975FB400660A53 /* Assets.xcassets */; };
 		B322BE8F2C975FB400660A53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B322BE8D2C975FB400660A53 /* LaunchScreen.storyboard */; };
 		B394E9F72C98AA1900285D93 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9F62C98AA1900285D93 /* Models.swift */; };
-		B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9F82C98AA4300285D93 /* IconSearchService.swift */; };
+		B394E9F92C98AA4300285D93 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9F82C98AA4300285D93 /* NetworkService.swift */; };
 		B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FB2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift */; };
 		B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FD2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift */; };
 		B394EA002C98AC2600285D93 /* ModuleIconSearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */; };
 		B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */; };
-		B394EA092C98AE4200285D93 /* SavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* SavingManager.swift */; };
+		B394EA092C98AE4200285D93 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA082C98AE4200285D93 /* ImageLoader.swift */; };
 		B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */; };
 		B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */; };
 		B394EA172C9FEFE200285D93 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B394EA162C9FEFE200285D93 /* Nuke */; };
@@ -31,7 +31,7 @@
 		B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA392CAB326000285D93 /* EmptyView.swift */; };
 		B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA3B2CAB329700285D93 /* LoadingView.swift */; };
 		B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */; };
-		B394EA472CB1757000285D93 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA462CB1757000285D93 /* LoadingFooterView.swift */; };
+		B394EA4D2CB9C24A00285D93 /* IconSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B394EA4C2CB9C24A00285D93 /* IconSearchService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,12 +41,12 @@
 		B322BE8E2C975FB400660A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B322BE902C975FB400660A53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B394E9F62C98AA1900285D93 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		B394E9F82C98AA4300285D93 /* IconSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSearchService.swift; sourceTree = "<group>"; };
+		B394E9F82C98AA4300285D93 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B394E9FB2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherFactory.swift; sourceTree = "<group>"; };
 		B394E9FD2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherPresenter.swift; sourceTree = "<group>"; };
 		B394E9FF2C98AC2600285D93 /* ModuleIconSearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherViewController.swift; sourceTree = "<group>"; };
 		B394EA032C98ADF500285D93 /* ModuleIconSearcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherView.swift; sourceTree = "<group>"; };
-		B394EA082C98AE4200285D93 /* SavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingManager.swift; sourceTree = "<group>"; };
+		B394EA082C98AE4200285D93 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionAlertController.swift; sourceTree = "<group>"; };
 		B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessAlertController.swift; sourceTree = "<group>"; };
 		B394EA1A2CA14B7700285D93 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		B394EA392CAB326000285D93 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B394EA3B2CAB329700285D93 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B394EA402CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleIconSearcherCollectionViewCell.swift; sourceTree = "<group>"; };
-		B394EA462CB1757000285D93 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
+		B394EA4C2CB9C24A00285D93 /* IconSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSearchService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +110,10 @@
 		B322BE962C975FCB00660A53 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B394E9F82C98AA4300285D93 /* IconSearchService.swift */,
-				B394EA342CAB16E100285D93 /* RequestBuilder.swift */,
+				B394EA4C2CB9C24A00285D93 /* IconSearchService.swift */,
 				B394EA1A2CA14B7700285D93 /* Debouncer.swift */,
+				B394E9F82C98AA4300285D93 /* NetworkService.swift */,
+				B394EA342CAB16E100285D93 /* RequestBuilder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -132,7 +133,7 @@
 		B394EA072C98AE2600285D93 /* ModuleAddToGallery */ = {
 			isa = PBXGroup;
 			children = (
-				B394EA082C98AE4200285D93 /* SavingManager.swift */,
+				B394EA082C98AE4200285D93 /* ImageLoader.swift */,
 				B394EA0A2C98AE5600285D93 /* PermissionAlertController.swift */,
 				B394EA0C2C98AE6800285D93 /* SuccessAlertController.swift */,
 			);
@@ -145,7 +146,6 @@
 				B394EA372CAB323900285D93 /* ErrorView.swift */,
 				B394EA392CAB326000285D93 /* EmptyView.swift */,
 				B394EA3B2CAB329700285D93 /* LoadingView.swift */,
-				B394EA462CB1757000285D93 /* LoadingFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,20 +236,20 @@
 				B394EA042C98ADF500285D93 /* ModuleIconSearcherView.swift in Sources */,
 				B394EA0D2C98AE6800285D93 /* SuccessAlertController.swift in Sources */,
 				B322BE832C975FB300660A53 /* AppDelegate.swift in Sources */,
-				B394EA092C98AE4200285D93 /* SavingManager.swift in Sources */,
+				B394EA092C98AE4200285D93 /* ImageLoader.swift in Sources */,
 				B394EA3C2CAB329700285D93 /* LoadingView.swift in Sources */,
 				B394EA3A2CAB326000285D93 /* EmptyView.swift in Sources */,
 				B394E9FC2C98ABEE00285D93 /* ModuleIconSearcherFactory.swift in Sources */,
 				B394EA0B2C98AE5600285D93 /* PermissionAlertController.swift in Sources */,
 				B394EA1B2CA14B7700285D93 /* Debouncer.swift in Sources */,
-				B394E9F92C98AA4300285D93 /* IconSearchService.swift in Sources */,
+				B394E9F92C98AA4300285D93 /* NetworkService.swift in Sources */,
 				B394EA382CAB323900285D93 /* ErrorView.swift in Sources */,
-				B394EA472CB1757000285D93 /* LoadingFooterView.swift in Sources */,
 				B394EA352CAB16E100285D93 /* RequestBuilder.swift in Sources */,
 				B394EA412CB133B700285D93 /* ModuleIconSearcherCollectionViewCell.swift in Sources */,
 				B394E9FE2C98AC1400285D93 /* ModuleIconSearcherPresenter.swift in Sources */,
 				B394E9F72C98AA1900285D93 /* Models.swift in Sources */,
 				B394EA002C98AC2600285D93 /* ModuleIconSearcherViewController.swift in Sources */,
+				B394EA4D2CB9C24A00285D93 /* IconSearchService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

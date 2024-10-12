@@ -13,11 +13,8 @@ protocol RequestBuilder {
 
 final class IconSearchRequestBuilder: RequestBuilder {
 
-    private let apiKey = "E3fJGMECer2qkm3BYLdjFJMfDPM19qnKauakI7zqneuZPGldSBGUuGx4EXBbtIEB"
-    private let baseURL = "https://api.iconfinder.com/v4/icons/search"
-
     func createRequest(query: String, count: Int, offset: Int) -> URLRequest? {
-        guard var urlComponents = URLComponents(string: baseURL) else {
+        guard var urlComponents = URLComponents(string: Constants.baseURL) else {
             return nil
         }
 
@@ -38,8 +35,15 @@ final class IconSearchRequestBuilder: RequestBuilder {
         request.timeoutInterval = 10
         request.allHTTPHeaderFields = [
             "accept": "application/json",
-            "Authorization": "Bearer \(apiKey)"
+            "Authorization": "Bearer \(Constants.apiKey)"
         ]
         return request
+    }
+}
+
+private extension IconSearchRequestBuilder {
+    enum Constants {
+        static let apiKey = "E3fJGMECer2qkm3BYLdjFJMfDPM19qnKauakI7zqneuZPGldSBGUuGx4EXBbtIEB"
+        static let baseURL = "https://api.iconfinder.com/v4/icons/search"
     }
 }

@@ -87,6 +87,7 @@ private extension ModuleIconSearcherCollectionViewCell {
             self.iconImageView.image = image
             return
         }
+
         task = ImagePipeline.shared.loadImage(with: url) { [weak self] result in
             switch result {
             case .success(let response):
@@ -98,9 +99,10 @@ private extension ModuleIconSearcherCollectionViewCell {
     }
 
     @objc func imageClicked() {
-        guard let image = iconImageView.image else { return }
-        SavingManager.shared.saveToGallery(image: image)
-    }
+            guard let image = iconImageView.image else { return }
+            let imageLoader = ImageLoader()
+            imageLoader.saveToGallery(image: image)
+        }
 
     func setupSubviews() {
         contentView.addSubview(iconImageView)

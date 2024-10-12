@@ -13,10 +13,12 @@ final class ModuleIconSearcherView: UIView {
 
     struct Model {
         let items: [Item]
+        let onRequestData: ((Int) -> Void)?
     }
 
     private var model: Model?
     private var isLoadingMoreData = false
+    private var onRequestData: ((Int) -> Void)?
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,11 +31,6 @@ final class ModuleIconSearcherView: UIView {
         view.register(
             ModuleIconSearcherCollectionViewCell.self,
             forCellWithReuseIdentifier: ModuleIconSearcherCollectionViewCell.iconCell
-        )
-        view.register(
-            LoadingFooterView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: LoadingFooterView.identifier
         )
         view.backgroundColor = .systemBackground
         view.showsVerticalScrollIndicator = false
@@ -99,6 +96,7 @@ final class ModuleIconSearcherView: UIView {
 
     func update(model: Model) {
         self.model = model
+        self.onRequestData = model.onRequestData
         collectionView.reloadData()
         emptyView.isHidden = true
         errorView.isHidden = true
@@ -143,22 +141,6 @@ extension ModuleIconSearcherView: UICollectionViewDataSource {
         cell.update(with: cellModel)
         return cell
     }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath) -> UICollectionReusableView {
-
-        guard let footerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: LoadingFooterView.identifier,
-            for: indexPath
-        ) as? LoadingFooterView else {
-            return UICollectionReusableView()
-        }
-
-        return footerView
-    }
 }
 
 // MARK: - UICollectionViewDataSourcePrefetching
@@ -167,7 +149,7 @@ extension ModuleIconSearcherView: UICollectionViewDataSourcePrefetching {
         let rows = indexPaths.map { $0.row }
         guard let index = rows.max() else { return }
         print("Prefetching data for index \(index)")
-        presenter.loadMoreIcons()
+        model?.onRequestData?(index)
     }
 }
 
@@ -176,14 +158,7 @@ extension ModuleIconSearcherView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        return isLoadingMoreData ? CGSize(width: collectionView.bounds.width, height: 50) : .zero
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension ModuleIconSearcherView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }
 

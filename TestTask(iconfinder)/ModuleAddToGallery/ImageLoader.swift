@@ -8,12 +8,10 @@
 import UIKit
 import Photos
 
-final class SavingManager: NSObject {
+final class ImageLoader: NSObject {
 
     private let permissionAlert = PermissionAlertController()
     private let successAlert = SuccessAlertController()
-
-    static let shared = SavingManager()
 
     func saveToGallery(image: UIImage) {
         if PHPhotoLibrary.authorizationStatus() == .denied || PHPhotoLibrary.authorizationStatus() == .restricted {

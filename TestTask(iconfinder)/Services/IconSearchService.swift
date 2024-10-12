@@ -1,76 +1,95 @@
 //
-//  WebService.swift
+//  IconSearchService.swift
 //  TestTask(iconfinder)
 //
-//  Created by Александр Новиков on 16.09.2024.
+//  Created by Александр Новиков on 11.10.2024.
 //
 
 import Foundation
 
 protocol IconSearchServiceProtocol {
-    func searchIcons(
-        query: String,
-        count: Int,
-        offset: Int,
-        completion: @escaping (Result<IconResponse, Error>) -> Void
-    )
+
+    func requestIcon(query: String, completion: @escaping (Result<[IconResponse.IconModel], Error>) -> Void)
+    func requestNext(completion: @escaping (Result<[IconResponse.IconModel], Error>) -> Void)
+    func resetSeatch()
 }
 
 final class IconSearchService: IconSearchServiceProtocol {
+    private let networkService: IconsSearchNetworkServiceProtocol
+    private let debounceExecutor: CancellableExecutorProtocol
 
-    private let builder: RequestBuilder
+    private var icons = [IconResponse.IconModel]()
+    private var query = ""
+    private var offset = 0
+    private var totalCount = 0
 
-    init(iconSearchRequestBuilder: RequestBuilder) {
-        self.builder = iconSearchRequestBuilder
+    init(networkService: IconsSearchNetworkServiceProtocol, debounceExecutor: CancellableExecutorProtocol) {
+        self.networkService = networkService
+        self.debounceExecutor = debounceExecutor
     }
 
-    func searchIcons(
+    func requestIcon(query: String, completion: @escaping (Result<[IconResponse.IconModel], Error>) -> Void) {
+        self.query = query
+        reset()
+        execute(query: query, offset: offset, itemsPerPage: Constants.iconsCount, completion: completion)
+    }
+
+    func requestNext(completion: @escaping (Result<[IconResponse.IconModel], Error>) -> Void) {
+        guard offset + Constants.iconsCount < totalCount else {
+            return
+        }
+        offset += Constants.iconsCount
+        execute(query: query, offset: offset, itemsPerPage: Constants.iconsCount, completion: completion)
+    }
+
+    func resetSeatch() {
+        self.query = ""
+        debounceExecutor.cancel()
+        reset()
+    }
+}
+
+private extension IconSearchService {
+    func execute(
         query: String,
-        count: Int,
         offset: Int,
-        completion: @escaping (Result<IconResponse, Error>) -> Void
+        itemsPerPage: Int,
+        completion: @escaping (Result<[IconResponse.IconModel], Error>) -> Void
     ) {
-        guard let request = builder.createRequest(
-            query: query,
-            count: count,
-            offset: offset
-        ) else {
-            completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
-            return
-        }
+        debounceExecutor.cancel()
+        debounceExecutor.execute(delay: Constants.executeDelay) { [weak self] cancellable in
 
-        if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(IconResponse.self, from: cachedResponse.data)
-                completion(.success(response))
-            } catch {
-                completion(.failure(NSError(domain: "Invalid cache", code: 0, userInfo: nil)))
-            }
-            return
-        }
+            if cancellable.isCancelled { return }
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let data = data, let urlResponse = response else {
-                completion(.failure(NSError(domain: "No data", code: 0, userInfo: nil)))
-                return
-            }
-
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(IconResponse.self, from: data)
-                let cachedResponse = CachedURLResponse(response: urlResponse, data: data)
-                URLCache.shared.storeCachedResponse(cachedResponse, for: request)
-                completion(.success(response))
-            } catch {
-                completion(.failure(error))
+            self?.networkService.requestIcons(
+                query: query,
+                count: itemsPerPage,
+                offset: offset
+            ) { [weak self] response in
+                if cancellable.isCancelled { return }
+                guard let self else { return }
+                switch response {
+                case let .success(searchModel):
+                    self.totalCount = searchModel.totalCount
+                    self.icons.append(contentsOf: searchModel.icons)
+                    completion(.success(self.icons))
+                case let .failure(error):
+                        completion(.failure(error))
+                }
             }
         }
-        task.resume()
+    }
+
+    func reset() {
+        offset = 0
+        totalCount = 0
+        icons.removeAll()
+    }
+}
+
+private extension IconSearchService {
+    enum Constants {
+        static let iconsCount = 20
+        static let executeDelay = DispatchTimeInterval.milliseconds(300)
     }
 }
